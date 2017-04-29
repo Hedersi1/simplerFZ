@@ -1,0 +1,27 @@
+﻿@model Simple.MVC.Business.Seguranca.Patrocinador
+@using Simple.MVC.Business.Util;
+
+@{
+    ViewBag.Title = "Detalhes - Patrocinador";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Id:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Nome:</dt>
+                <dd>&nbsp;@Model.Nome</dd>
+                <dt>Logomarca:</dt>
+                <dd>&nbsp;@Model.Logomarca</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+

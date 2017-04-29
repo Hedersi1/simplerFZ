@@ -78,8 +78,8 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
 
             gerador.Tabela = Tabela;
             gerador.Area = Area;
-            gerador.Apresentacao = Tabela.Remove(0, 2);
-            gerador.Classe = Tabela.Remove(0, 2);
+            gerador.Apresentacao = Tabela;
+            gerador.Classe = Tabela;
             gerador.MensagemSucessoInsercao = "Item Inserido com sucesso!";
             gerador.MensagemSucessoAlteracao = "Alteração Realizada com sucesso!";
             gerador.MensagemSucessoExclusao = "Exclusão Realizada com sucesso!";

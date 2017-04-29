@@ -78,7 +78,7 @@ namespace Simple.MVC.Business.Seguranca
             foreach (var item in gerador.GeradorItem.Where(x => x.FkTable != null))
             {
                 classe.AppendLine("        [ForeignKey(\""+item.FieldName+"\")]");
-                classe.AppendLine("        public "+item.FkTable.Remove(0, 2)+ " " + item.FkTable.Remove(0, 2) + " { get; set; }");
+                classe.AppendLine("        public "+item.FkTable+ " " + item.FkTable + " { get; set; }");
             }
             classe.AppendLine("    }");
             classe.AppendLine("}");
@@ -120,8 +120,8 @@ namespace Simple.MVC.Business.Seguranca
 
             foreach (var item in fk)
             {
-                selectfk += ", " + item.FkTable.Remove(0, 2) + " = x." + item.FkTable.Remove(0, 2) ;
-                includes += ", x => x." + item.FkTable.Remove(0, 2) + " ";
+                selectfk += ", " + item.FkTable + " = x." + item.FkTable ;
+                includes += ", x => x." + item.FkTable + " ";
             }
 
             StringBuilder controlador = new StringBuilder();
@@ -287,7 +287,7 @@ namespace Simple.MVC.Business.Seguranca
             controlador.AppendLine("        {");
             foreach (var item in fk)
             {
-                controlador.AppendLine("            ViewBag."+item.FieldName+" = "+item.FkTable.Remove(0, 2)+"Repository.List(\"" +item.FkField+" ASC\", 0, 150).Select(x => new { x.Id, x."+ item.FkField + " });");
+                controlador.AppendLine("            ViewBag."+item.FieldName+" = "+item.FkTable+"Repository.List(\"" +item.FkField+" ASC\", 0, 150).Select(x => new { x.Id, x."+ item.FkField + " });");
             }
             controlador.AppendLine("        }");
             controlador.AppendLine("    }");
@@ -351,7 +351,7 @@ namespace Simple.MVC.Business.Seguranca
                 }
                 else
                 {
-                    index.AppendLine("            { \"data\": \"" + item.FkTable.Remove(0, 2) +"."+ item.FkField + "\" },");
+                    index.AppendLine("            { \"data\": \"" + item.FkTable +"."+ item.FkField + "\" },");
                 }
             }
             index.AppendLine("            {");
@@ -530,7 +530,7 @@ namespace Simple.MVC.Business.Seguranca
                 excluir.AppendLine("                <dt>" + item.NomeApresentacao + ":</dt>");
                 if (item.FkTable != null)
                 {
-                    excluir.AppendLine("                <dd>&nbsp;@Model." + item.FkTable.Remove(0, 2) + "." + item.FkField + "</dd>");
+                    excluir.AppendLine("                <dd>&nbsp;@Model." + item.FkTable + "." + item.FkField + "</dd>");
                 }
                 else
                 {

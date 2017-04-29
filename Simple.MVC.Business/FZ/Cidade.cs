@@ -9,7 +9,6 @@ namespace Simple.MVC.Business.FZ
     [Table("Cidade"), Serializable]
     public class Cidade : Entity
     {
-
         [Required]
         [Display(Name="Nome")]
         public String Nome { get; set; }
@@ -18,7 +17,7 @@ namespace Simple.MVC.Business.FZ
         [Display(Name="Estado")]
         public Int32 IdEstado { get; set; }
         [ForeignKey("IdEstado")]
-        public tado tado { get; set; }
+        public Estado Estado { get; set; }
     }
 }
 

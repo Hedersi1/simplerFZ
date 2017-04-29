@@ -1,0 +1,82 @@
+﻿@model Simple.MVC.Business.Seguranca.Pessoa
+@using Simple.MVC.Business.Util;
+@{ 
+    ViewBag.Title = "Criar - Pessoa";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary("Validação", new { @class="alert alert-danger summary" })
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nome)*
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)*
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IdPessoaStatus)*
+                @Html.DropDownListFor(model => model.IdPessoaStatus, new SelectList(ViewBag.IdPessoaStatus, "Id", "Descricao", Model.IdPessoaStatus), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IdUsuario)
+                @Html.DropDownListFor(model => model.IdUsuario, new SelectList(ViewBag.IdUsuario, "Id", "Guid", Model.IdUsuario), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IdCidade)*
+                @Html.DropDownListFor(model => model.IdCidade, new SelectList(ViewBag.IdCidade, "Id", "Nome", Model.IdCidade), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Endereco)
+                @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Complemento)
+                @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Numero)
+                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Bairro)
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.LatLng)
+                @Html.EditorFor(model => model.LatLng, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+    </div>
+    <div class="form-group well">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="@Url.Action("Indice")" class="btn btn-default">Voltar</a>
+    </div>
+}
+
+@section scripts{}
+

@@ -1,0 +1,63 @@
+﻿@model List<Simple.MVC.Business.Seguranca.Pessoa>
+
+@{ ViewBag.Title = "Pessoa"; }
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+    <div class="pull-right novo-page-header">
+        <a title="Pessoa" href="@Url.Action("Criar", "Pessoa")"><i title="Novo" class="fa fa-plus-circle fa-3x"></i><span class="hide"></span></a>
+    </div>
+</div>
+
+@RenderPage("~/Views/Shared/_filterIndex.cshtml")
+
+<table id="tbDados" class="table table-hover">
+    <thead class="tb-primary">
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th class="acoes">Ações</th>
+        </tr>
+    </thead>
+</table>
+
+<div class="hidden" id="action-form-list">
+    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Detalhes", "Pessoa")/{_Id_}"> <i title="Visualizar" class="fa fa-search fa-lg"></i><span class="hide">Visualizar</span></a> |
+    <a href="@Url.Action("Editar", "Pessoa")/{_Id_}"> <i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide"></span></a> |
+    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Excluir", "Pessoa")/{_Id_}"><i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide"></span></a>
+</div>
+@section head{
+    <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+}
+@section scripts{
+<script type="text/javascript" src="~/Content/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="~/Content/datatables/CustomTable.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ct = new CustomTable();
+        ct.ActionUrl = '@Url.Action("Indice")';
+        ct.CustomParameters = [{ 'name': 'searchText', 'element': $("#filtro") }],
+        ct.Columns = [
+            { "data": "Nome" },
+            { "data": "Email" },
+            {
+                "data": "Id",
+                "sortable": false,
+                "searchable": false,
+                "className": "text-center",
+                "render": function (data, type, full, meta) {
+                    return $('#action-form-list').html().replace(/{_Id_}/g, data);
+                }
+            }
+        ];
+
+        ct.Bind();
+
+        $('#frmFiltro').on('submit', function (evt) {
+            evt.preventDefault();
+            ct.Refresh();
+        });
+    });
+</script>
+}
+

@@ -6,12 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Simple.MVC.Business.FZ
 {
-    [Table("Pais"), Serializable]
-    public class Pais : Entity
+    [Table("SituacaoBeneficiado"), Serializable]
+    public class SituacaoBeneficiado : Entity
     {
+
         [Required]
-        [Display(Name="Nome")]
-        public String Nome { get; set; }
+        [Display(Name="Descrição")]
+        public String Descricao { get; set; }
     }
 }
 

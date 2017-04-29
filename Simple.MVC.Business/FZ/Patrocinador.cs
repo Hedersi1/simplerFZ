@@ -6,21 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Simple.MVC.Business.FZ
 {
-    [Table("Estado"), Serializable]
-    public class Estado : Entity
+    [Table("Patrocinador"), Serializable]
+    public class Patrocinador : Entity
     {
         [Required]
         [Display(Name="Nome")]
         public String Nome { get; set; }
 
         [Required]
-        [Display(Name="País")]
-        public Int32 IdPais { get; set; }
-
-        [Display(Name="Sigla")]
-        public String Sigla { get; set; }
-        [ForeignKey("IdPais")]
-        public Pais Pais { get; set; }
+        [Display(Name="Logomarca")]
+        public String Logomarca { get; set; }
     }
 }
 

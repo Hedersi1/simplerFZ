@@ -1,0 +1,52 @@
+﻿@model Simple.MVC.Business.Seguranca.Pessoa
+@using Simple.MVC.Business.Util;
+@{
+    ViewBag.Title = "Excluir - Pessoa";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Id:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Nome:</dt>
+                <dd>&nbsp;@Model.Nome</dd>
+                <dt>E-mail:</dt>
+                <dd>&nbsp;@Model.Email</dd>
+                <dt>Status:</dt>
+                <dd>&nbsp;@Model.PessoaStatus.Descricao</dd>
+                <dt>Usuario:</dt>
+                <dd>&nbsp;@Model.SEUsuario.Guid</dd>
+                <dt>Cidade:</dt>
+                <dd>&nbsp;@Model.Cidade.Nome</dd>
+                <dt>Endereço:</dt>
+                <dd>&nbsp;@Model.Endereco</dd>
+                <dt>Complemento:</dt>
+                <dd>&nbsp;@Model.Complemento</dd>
+                <dt>Número:</dt>
+                <dd>&nbsp;@Model.Numero</dd>
+                <dt>Bairro:</dt>
+                <dd>&nbsp;@Model.Bairro</dd>
+                <dt>LatLng:</dt>
+                <dd>&nbsp;@Model.LatLng</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </p>
+            }
+        </div>
+    </div>
+</div>
+

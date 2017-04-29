@@ -41,6 +41,5 @@ D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\Simple.MVC.Cor
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\System.Linq.Dynamic.dll
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.xml
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.SqlServer.xml
-D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.csprojResolveAssemblyReference.cache
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.dll
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.pdb

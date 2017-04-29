@@ -51,6 +51,7 @@ namespace Simple.MVC.Business.FZ
         public Usuario Usuario { get; set; }
         [ForeignKey("IdCidade")]
         public Cidade Cidade { get; set; }
+        public object SEUsuario { get; set; }
     }
 }
 

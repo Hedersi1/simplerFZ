@@ -206,6 +206,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Seguranca\Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\BeneficiadoController.cs" />
+    <Compile Include="Controllers\BeneficioController.cs" />
     <Compile Include="Areas\Seguranca\Controllers\ConfiguracaoController.cs" />
     <Compile Include="Areas\Seguranca\Controllers\GeradorController.cs" />
     <Compile Include="Areas\Seguranca\Controllers\GrupoController.cs" />
@@ -223,6 +225,8 @@
     <Compile Include="Controllers\JSONController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapaController.cs" />
+    <Compile Include="Controllers\PatrocinadorController.cs" />
+    <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2413,6 +2417,26 @@
     <Content Include="Views\Account\ConfiguracaoNaoEncontrada.cshtml" />
     <Content Include="Views\Shared\_menuHome.cshtml" />
     <Content Include="Views\Mapa\Indice.cshtml" />
+    <Content Include="Views\AgenteDoador\Criar.cshtml" />
+    <Content Include="Views\AgenteDoador\Detalhes.cshtml" />
+    <Content Include="Views\AgenteDoador\Editar.cshtml" />
+    <Content Include="Views\AgenteDoador\Excluir.cshtml" />
+    <Content Include="Views\AgenteDoador\Indice.cshtml" />
+    <Content Include="Views\Beneficiado\Criar.cshtml" />
+    <Content Include="Views\Beneficiado\Detalhes.cshtml" />
+    <Content Include="Views\Beneficiado\Editar.cshtml" />
+    <Content Include="Views\Beneficiado\Excluir.cshtml" />
+    <Content Include="Views\Beneficiado\Indice.cshtml" />
+    <Content Include="Views\Beneficio\Criar.cshtml" />
+    <Content Include="Views\Beneficio\Detalhes.cshtml" />
+    <Content Include="Views\Beneficio\Editar.cshtml" />
+    <Content Include="Views\Beneficio\Excluir.cshtml" />
+    <Content Include="Views\Beneficio\Indice.cshtml" />
+    <Content Include="Views\Patrocinador\Criar.cshtml" />
+    <Content Include="Views\Patrocinador\Detalhes.cshtml" />
+    <Content Include="Views\Patrocinador\Editar.cshtml" />
+    <Content Include="Views\Patrocinador\Excluir.cshtml" />
+    <Content Include="Views\Patrocinador\Indice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2423,6 +2447,7 @@
     <Folder Include="Content\Upload\RH\ArquivoAFD\" />
     <Folder Include="Content\Upload\RH\Candidato\" />
     <Folder Include="Content\Upload\RH\Funcionario\" />
+    <Folder Include="Upload\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
