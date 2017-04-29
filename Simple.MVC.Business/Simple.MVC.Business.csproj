@@ -34,6 +34,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ContextBusiness.cs" />
+    <Compile Include="FZ\AgentePerfil.cs" />
+    <Compile Include="FZ\AgentePerfilRepository.cs" />
+    <Compile Include="FZ\Cidade.cs" />
+    <Compile Include="FZ\CidadeRepository.cs" />
+    <Compile Include="FZ\Estado.cs" />
+    <Compile Include="FZ\EstadoRepository.cs" />
+    <Compile Include="FZ\Pais.cs" />
+    <Compile Include="FZ\PaisRepository.cs" />
+    <Compile Include="FZ\Pessoa.cs" />
+    <Compile Include="FZ\PessoaFisica.cs" />
+    <Compile Include="FZ\PessoaFisicaRepository.cs" />
+    <Compile Include="FZ\PessoaJuridica.cs" />
+    <Compile Include="FZ\PessoaJuridicaRepository.cs" />
+    <Compile Include="FZ\PessoaRepository.cs" />
+    <Compile Include="FZ\PessoaStatus.cs" />
+    <Compile Include="FZ\PessoaStatusRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seguranca\Autorizacao.cs" />
     <Compile Include="Seguranca\AutorizacaoRepository.cs" />

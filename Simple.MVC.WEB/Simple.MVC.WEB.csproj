@@ -110,6 +110,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -233,17 +236,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ClientDependency\EMILIANOPC-59bd35e9c7f6f858c32f3b626ef597de-map.xml" />
-    <Content Include="App_Data\ClientDependency\GUSTAVO-048f5e6cf98ee690a425aa127cc8ad7d-map.xml" />
-    <Content Include="App_Data\ClientDependency\HEDER-PC-0a7b9cef1ef4f6a9c35afe8f4e6401e7-map.xml" />
-    <Content Include="App_Data\ClientDependency\HEDER-PC-cb68c3eb76d205046c8e5f5e9eb03a36-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE-01-14f32f6b7211ff473b5b9718cc6f5567-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE-03-6905f34d7601c11c3618cc9f1aac4a65-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE02-25c86450fff957e3b992cac5a0d28801-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE02-2d42dbaf3758404b0d9d430b8003ab82-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE02-3b08440264391b9c7b56b04efe9ec018-map.xml" />
-    <Content Include="App_Data\ClientDependency\SIMPLE02-3cdf3428d74b7e1b6ff6f7ad2983da70-map.xml" />
-    <Content Include="App_Data\ScriptAlteracoesEmiliano.sql" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\EntityFramework.dll" />
@@ -2423,6 +2415,7 @@
     <Content Include="Views\Mapa\Indice.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Seguranca\Models\" />
     <Folder Include="Content\css-account\images\" />
     <Folder Include="Content\Upload\NotaFiscal\XML\" />

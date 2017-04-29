@@ -1,6 +1,7 @@
 ﻿using Simple.MVC.Core.Data;
 using System.Data.Entity;
 using Simple.MVC.Business.Seguranca;
+using Simple.MVC.Business.FZ;
 
 namespace Simple.MVC.Business
 {
@@ -21,6 +22,17 @@ namespace Simple.MVC.Business
         public DbSet<Grupo> Grupo { get; set; }
         public DbSet<AutorizacaoConfiguracao> AutorizacaoConfiguracao { get; set; }
         public DbSet<Autorizacao> Autorizacao { get; set; }
+
+        //FZ
+        public DbSet<AgentePerfil> AgentePerfil { get; set; }
+        public DbSet<Pessoa> Pessoa { get; set; }
+        public DbSet<PessoaFisica> PessoaFisica { get; set; }
+        public DbSet<PessoaStatus> PessoaStatus { get; set; }
+        public DbSet<PessoaJuridica> PessoaJuridica { get; set; }
+        public DbSet<Pais> Pais { get; set; }
+        public DbSet<Estado> Estado { get; set; }
+        public DbSet<Cidade> Cidade { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
