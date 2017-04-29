@@ -11,11 +11,9 @@ using System.Web.Mvc;
 
 namespace Simple.MVC.WEB.Seguranca.Controllers
 {
-    public class PessoaController : Controller
+    public class AgenteDoadorController : Controller
     {
-        public object SEUsuarioRepository { get; private set; }
-
-        [Autorize(Roles = "Seguranca.Pessoa.Indice")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Indice")]
         public ActionResult Indice()
         {
             try
@@ -24,15 +22,15 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
                 {
                     var parametros = JDataTable.GetDataTableParams(Request);
 
-                    var dados = PessoaRepository.List(x => x.Nome, parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize, x => x.PessoaStatus , x => x.SEUsuario , x => x.Cidade );
-                    var total = PessoaRepository.Count(x => x.Nome, parametros.SearchText);
+                    var dados = PessoaRepository.ListAgenteDoador(parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize);
+                    var total = PessoaRepository.CountAgenteDoador(parametros.SearchText);
 
                     return Json(new
                     {
                         draw = parametros.Draw,
                         recordsTotal = total,
                         recordsFiltered = total,
-                        data = dados.Select(x => new {Id = x.Id, Nome = x.Nome, Email = x.Email, PessoaStatus = x.PessoaStatus, SEUsuario = x.SEUsuario, Cidade = x.Cidade })
+                        data = dados.Select(x => new {Id = x.Id, Nome = x.Nome, Email = x.Email, PessoaStatus = x.PessoaStatus, SEUsuario = x.Usuario, Cidade = x.Cidade })
                     },
                     JsonRequestBehavior.AllowGet);
                 }
@@ -44,12 +42,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View();
         }
 
-        [Autorize(Roles = "Seguranca.Pessoa.Detalhes")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Detalhes")]
         public ActionResult Detalhes(int id)
         {
             try
             {
-                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.SEUsuario , x => x.Cidade );
+                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.Usuario , x => x.Cidade );
                 return View(obj);
             }
             catch (Exception ex)
@@ -59,7 +57,7 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             }
         }
 
-        [Autorize(Roles = "Seguranca.Pessoa.Criar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Criar")]
         public ActionResult Criar()
         {
             CarregarViewBags();
@@ -67,7 +65,7 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Pessoa.Criar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Criar")]
         public ActionResult Criar(Pessoa obj)
         {
             try
@@ -90,7 +88,7 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Pessoa.Editar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Editar")]
         public ActionResult Editar(int id)
         {
             try
@@ -107,7 +105,7 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Pessoa.Editar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Editar")]
         public ActionResult Editar(Pessoa obj)
         {
             try
@@ -128,12 +126,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Pessoa.Excluir")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Excluir")]
         public ActionResult Excluir(int id = 0)
         {
             try
             {
-                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.SEUsuario , x => x.Cidade );
+                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.Usuario , x => x.Cidade );
                 return View(obj);
             }
             catch (Exception ex)
@@ -144,7 +142,7 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
 
         [HttpPost, ActionName("Excluir")]
-        [Autorize(Roles = "Seguranca.Pessoa.Excluir")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Excluir")]
         public ActionResult ConfirmarExclusao(int id)
         {
             try
@@ -161,9 +159,8 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
         public void CarregarViewBags()
         {
-            ViewBag.IdPessoaStatus = PessoaStatusRepository.List("Descricao ASC", 0, 150).Select(x => new { x.Id, x.Descricao });
-            ViewBag.IdUsuario = UsuarioRepository.List("Guid ASC", 0, 150).Select(x => new { x.Id, x.Guid });
-            ViewBag.IdCidade = CidadeRepository.List("Nome ASC", 0, 150).Select(x => new { x.Id, x.Nome });
+            ViewBag.PessoaStatus = PessoaStatusRepository.List("Descricao ASC", 0, 150).Select(x => new { x.Id, x.Descricao });
+            ViewBag.Cidade = CidadeRepository.List("Nome ASC", 0, 150).Select(x => new { x.Id, x.Nome });
         }
     }
 }

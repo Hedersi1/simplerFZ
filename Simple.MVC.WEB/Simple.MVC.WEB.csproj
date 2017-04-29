@@ -206,6 +206,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Seguranca\Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\AgenteFomeZeroController.cs" />
     <Compile Include="Controllers\BeneficiadoController.cs" />
     <Compile Include="Controllers\BeneficioController.cs" />
     <Compile Include="Areas\Seguranca\Controllers\ConfiguracaoController.cs" />
@@ -226,7 +227,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\PatrocinadorController.cs" />
-    <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\AgenteDoadorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2437,6 +2438,11 @@
     <Content Include="Views\Patrocinador\Editar.cshtml" />
     <Content Include="Views\Patrocinador\Excluir.cshtml" />
     <Content Include="Views\Patrocinador\Indice.cshtml" />
+    <Content Include="Views\AgenteFomeZero\Criar.cshtml" />
+    <Content Include="Views\AgenteFomeZero\Detalhes.cshtml" />
+    <Content Include="Views\AgenteFomeZero\Editar.cshtml" />
+    <Content Include="Views\AgenteFomeZero\Excluir.cshtml" />
+    <Content Include="Views\AgenteFomeZero\Indice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

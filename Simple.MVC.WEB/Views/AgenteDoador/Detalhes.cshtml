@@ -1,4 +1,4 @@
-﻿@model Simple.MVC.Business.Seguranca.Pessoa
+﻿@model Simple.MVC.Business.FZ.Pessoa
 @using Simple.MVC.Business.Util;
 
 @{
@@ -21,11 +21,11 @@
                 <dt>E-mail:</dt>
                 <dd>&nbsp;@Model.Email</dd>
                 <dt>Status:</dt>
-                <dd>&nbsp;@Model.ssoaStatus.Descricao</dd>
+                <dd>&nbsp;@Model.PessoaStatus.Descricao</dd>
                 <dt>Usuario:</dt>
                 <dd>&nbsp;@Model.Usuario.Guid</dd>
                 <dt>Cidade:</dt>
-                <dd>&nbsp;@Model.dade.Nome</dd>
+                <dd>&nbsp;@Model.Cidade.Nome</dd>
                 <dt>Endereço:</dt>
                 <dd>&nbsp;@Model.Endereco</dd>
                 <dt>Complemento:</dt>
@@ -35,7 +35,7 @@
                 <dt>Bairro:</dt>
                 <dd>&nbsp;@Model.Bairro</dd>
                 <dt>LatLng:</dt>
-                <dd>&nbsp;@Model.LatLng</dd>
+                <dd>&nbsp;@Model.Latitude</dd>
             </dl>
         </div>
     </div>

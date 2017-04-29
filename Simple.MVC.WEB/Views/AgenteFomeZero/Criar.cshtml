@@ -1,14 +1,13 @@
 ﻿@model Simple.MVC.Business.FZ.Pessoa
 @using Simple.MVC.Business.Util;
 @{ 
-    ViewBag.Title = "Editar - Pessoa";
+    ViewBag.Title = "Cadastrar Agente Fome Zero";
 }
 <div class="page-header">
     <h1>@ViewBag.Title</h1>
 </div>
 @using (Html.BeginForm())
 {
-@Html.HiddenFor(m => m.Id)
     @Html.ValidationSummary("Validação", new { @class="alert alert-danger summary" })
 
     <div class="row">
@@ -18,28 +17,28 @@
                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <div class="form-group">
                 @Html.LabelFor(m => m.Email)*
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <div class="form-group">
                 @Html.LabelFor(m => m.IdPessoaStatus)*
-                @Html.DropDownListFor(model => model.IdPessoaStatus, new SelectList(ViewBag.IdPessoaStatus, "Id", "Descricao", Model.IdPessoaStatus), "Selecione... ", new { @class = "form-control"})
+                @Html.DropDownListFor(model => model.IdPessoaStatus, new SelectList(ViewBag.PessoaStatus, "Id", "Descricao", Model.IdPessoaStatus), "Selecione... ", new { @class = "form-control"})
             </div>
         </div>
-        <div class="col-xs-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.IdUsuario)
-                @Html.DropDownListFor(model => model.IdUsuario, new SelectList(ViewBag.IdUsuario, "Id", "Guid", Model.IdUsuario), "Selecione... ", new { @class = "form-control"})
-            </div>
-        </div>
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <div class="form-group">
                 @Html.LabelFor(m => m.IdCidade)*
-                @Html.DropDownListFor(model => model.IdCidade, new SelectList(ViewBag.IdCidade, "Id", "Nome", Model.IdCidade), "Selecione... ", new { @class = "form-control"})
+                @Html.DropDownListFor(model => model.IdCidade, new SelectList(ViewBag.Cidade, "Id", "Nome", Model.IdCidade), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Bairro)
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
         <div class="col-xs-12">
@@ -54,19 +53,19 @@
                 @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.Numero)
                 @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-4">
             <div class="form-group">
-                @Html.LabelFor(m => m.Bairro)
-                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.LabelFor(m => m.Longitude)
+                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-4">
             <div class="form-group">
                 @Html.LabelFor(m => m.Latitude)
                 @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control"} })
@@ -79,5 +78,17 @@
     </div>
 }
 
-@section scripts{}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            navigator.geolocation.getCurrentPosition(function (location) {
+                alert(location.coords.longitude)
+                $("#Longitude").val(location.coords.longitude);
+                $("#Latitude").val(location.coords.latitude);
+
+            });
+        });
+    </script>
+
+}
 

@@ -11,9 +11,9 @@ using System.Web.Mvc;
 
 namespace Simple.MVC.WEB.Seguranca.Controllers
 {
-    public class BeneficioController : Controller
+    public class AgenteFomeZeroController : Controller
     {
-        [Autorize(Roles = "Seguranca.Beneficio.Indice")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Indice")]
         public ActionResult Indice()
         {
             try
@@ -22,15 +22,15 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
                 {
                     var parametros = JDataTable.GetDataTableParams(Request);
 
-                    var dados = BeneficioRepository.List(x => x.Id, parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize, x => x.PessoaJuridica );
-                    var total = BeneficioRepository.Count(x => x.Id, parametros.SearchText);
+                    var dados = PessoaRepository.ListAgenteFomeZero(parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize);
+                    var total = PessoaRepository.CountAgenteFomeZero(parametros.SearchText);
 
                     return Json(new
                     {
                         draw = parametros.Draw,
                         recordsTotal = total,
                         recordsFiltered = total,
-                        data = dados.Select(x => new {Id = x.Id, IdAgenteParceiro = x.IdAgenteParceiro, Descricao = x.Descricao, Valor = x.EhPorcentagem ?  x.Valor.ToString("c2")+ "%" : "R$ " +x.Valor.ToString("c2"), PessoaJuridica = x.PessoaJuridica })
+                        data = dados.Select(x => new {Id = x.Id, Nome = x.Nome, Email = x.Email, PessoaStatus = x.PessoaStatus, SEUsuario = x.Usuario, Cidade = x.Cidade })
                     },
                     JsonRequestBehavior.AllowGet);
                 }
@@ -42,12 +42,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View();
         }
 
-        [Autorize(Roles = "Seguranca.Beneficio.Detalhes")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Detalhes")]
         public ActionResult Detalhes(int id)
         {
             try
             {
-                var obj = BeneficioRepository.FirstOrDefault(id, x => x.PessoaJuridica );
+                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.Usuario , x => x.Cidade );
                 return View(obj);
             }
             catch (Exception ex)
@@ -57,23 +57,23 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             }
         }
 
-        [Autorize(Roles = "Seguranca.Beneficio.Criar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Criar")]
         public ActionResult Criar()
         {
             CarregarViewBags();
-            return View(new Beneficio());
+            return View(new Pessoa());
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Beneficio.Criar")]
-        public ActionResult Criar(Beneficio obj)
+        [Autorize(Roles = "Seguranca.AgenteDoador.Criar")]
+        public ActionResult Criar(Pessoa obj)
         {
             try
             {
                 CarregarViewBags();
                 if (ModelState.IsValid)
                 {
-                    BeneficioRepository.Save(obj);
+                    PessoaRepository.Save(obj);
                     TempData["s"] = "Item Inserido com sucesso!";
 
                     return RedirectToAction("Criar");
@@ -88,13 +88,13 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Beneficio.Editar")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Editar")]
         public ActionResult Editar(int id)
         {
             try
             {
                 CarregarViewBags();
-                var obj = BeneficioRepository.FirstOrDefault(id);
+                var obj = PessoaRepository.FirstOrDefault(id);
                 return View(obj);
             }
             catch (Exception ex)
@@ -105,14 +105,14 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Beneficio.Editar")]
-        public ActionResult Editar(Beneficio obj)
+        [Autorize(Roles = "Seguranca.AgenteDoador.Editar")]
+        public ActionResult Editar(Pessoa obj)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    BeneficioRepository.Save(obj);
+                    PessoaRepository.Save(obj);
                     TempData["s"] = "Alteração Realizada com sucesso!";
                     return RedirectToAction("Indice");
                 }
@@ -126,12 +126,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Beneficio.Excluir")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Excluir")]
         public ActionResult Excluir(int id = 0)
         {
             try
             {
-                var obj = BeneficioRepository.FirstOrDefault(id, x => x.PessoaJuridica );
+                var obj = PessoaRepository.FirstOrDefault(id, x => x.PessoaStatus , x => x.Usuario , x => x.Cidade );
                 return View(obj);
             }
             catch (Exception ex)
@@ -142,12 +142,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
 
         [HttpPost, ActionName("Excluir")]
-        [Autorize(Roles = "Seguranca.Beneficio.Excluir")]
+        [Autorize(Roles = "Seguranca.AgenteDoador.Excluir")]
         public ActionResult ConfirmarExclusao(int id)
         {
             try
             {
-                BeneficioRepository.Delete(id);
+                PessoaRepository.Delete(id);
                 TempData["s"] = "Exclusão Realizada com sucesso!";
             }
             catch (Exception ex)
@@ -159,7 +159,8 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
         }
         public void CarregarViewBags()
         {
-            ViewBag.IdAgenteParceiro = PessoaJuridicaRepository.List("CNPJ ASC", 0, 150).Select(x => new { x.Id, x.CNPJ });
+            ViewBag.PessoaStatus = PessoaStatusRepository.List("Descricao ASC", 0, 150).Select(x => new { x.Id, x.Descricao });
+            ViewBag.Cidade = CidadeRepository.List("Nome ASC", 0, 150).Select(x => new { x.Id, x.Nome });
         }
     }
 }

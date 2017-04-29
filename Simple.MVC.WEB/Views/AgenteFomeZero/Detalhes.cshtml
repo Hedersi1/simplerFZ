@@ -1,7 +1,8 @@
 ﻿@model Simple.MVC.Business.FZ.Pessoa
 @using Simple.MVC.Business.Util;
+
 @{
-    ViewBag.Title = "Excluir - Pessoa";
+    ViewBag.Title = "Detalhes - Agente Fome Zero";
     Layout = null;
 }
 
@@ -36,16 +37,6 @@
                 <dt>LatLng:</dt>
                 <dd>&nbsp;@Model.Latitude</dd>
             </dl>
-        </div>
-        <div class="modal-footer">
-            @using (Html.BeginForm())
-            {
-                @Html.HiddenFor(m => m.Id)
-                <p>
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                </p>
-            }
         </div>
     </div>
 </div>
