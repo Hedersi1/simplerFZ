@@ -1,4 +1,4 @@
-﻿@model Simple.MVC.Business.Seguranca.Beneficio
+﻿@model Simple.MVC.Business.FZ.Beneficio
 @using Simple.MVC.Business.Util;
 @{ 
     ViewBag.Title = "Criar - Benefício";
@@ -13,12 +13,6 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="form-group">
-                @Html.LabelFor(m => m.IdAgenteParceiro)*
-                @Html.DropDownListFor(model => model.IdAgenteParceiro, new SelectList(ViewBag.IdAgenteParceiro, "Id", "CNPJ", Model.IdAgenteParceiro), "Selecione... ", new { @class = "form-control"})
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="form-group">
                 @Html.LabelFor(m => m.Descricao)*
                 @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control"} })
             </div>
@@ -27,12 +21,6 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Valor)*
                 @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control"} })
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.EhPorcentagem)*
-                @Html.EditorFor(model => model.EhPorcentagem, new { htmlAttributes = new { @class = "form-control"} })
             </div>
         </div>
     </div>

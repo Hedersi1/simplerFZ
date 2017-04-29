@@ -43,3 +43,14 @@ D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramewor
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.SqlServer.xml
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.dll
 D:\Projetos\Git\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.pdb
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\Simple.MVC.Business.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\Simple.MVC.Business.pdb
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.SqlServer.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\Simple.MVC.Core.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\System.Linq.Dynamic.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.xml
+C:\Hackathon\simplerFZ\Simple.MVC.Business\bin\Debug\EntityFramework.SqlServer.xml
+C:\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.csprojResolveAssemblyReference.cache
+C:\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.dll
+C:\Hackathon\simplerFZ\Simple.MVC.Business\obj\Debug\Simple.MVC.Business.pdb

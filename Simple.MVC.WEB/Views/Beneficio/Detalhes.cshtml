@@ -1,4 +1,4 @@
-﻿@model Simple.MVC.Business.Seguranca.Beneficio
+﻿@model Simple.MVC.Business.FZ.Beneficio
 @using Simple.MVC.Business.Util;
 
 @{
@@ -17,13 +17,11 @@
                 <dt>Id:</dt>
                 <dd>&nbsp;@Model.Id</dd>
                 <dt>Agente Parceiro:</dt>
-                <dd>&nbsp;@Model.ssoaJuridica.CNPJ</dd>
+                <dd>&nbsp;@Model.PessoaJuridica.CNPJ -   @Model.PessoaJuridica.Nome</dd>
                 <dt>Descrição:</dt>
                 <dd>&nbsp;@Model.Descricao</dd>
                 <dt>Valor:</dt>
-                <dd>&nbsp;@Model.Valor</dd>
-                <dt>EhPorcentagem:</dt>
-                <dd>&nbsp;@Model.EhPorcentagem</dd>
+                <dd>&nbsp;@(Model.EhPorcentagem ? Model.Valor.ToString("c2") + "%" : "R$ "+ Model.Valor.ToString("c2")) </dd>
             </dl>
         </div>
     </div>

@@ -36,7 +36,7 @@ namespace Simple.MVC.Business
         public DbSet<Beneficiado> Beneficiado { get; set; }
         public DbSet<Doacao> Doacao { get; set; }
 
-
+        public DbSet<Beneficio> Beneficio { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Papel>().
