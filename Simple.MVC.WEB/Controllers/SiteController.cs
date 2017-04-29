@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Simple.MVC.WEB.Controllers
 {
+    [AllowAnonymous]
     public class SiteController : Controller
     {
         // GET: Site

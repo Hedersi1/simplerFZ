@@ -228,7 +228,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\PatrocinadorController.cs" />
-    <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\AgenteDoadorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2489,6 +2488,7 @@
     <Content Include="Views\AgenteFomeZero\Indice.cshtml" />
     <Content Include="Views\Doacao\Mapa.cshtml" />
     <Content Include="Views\Site\Indice.cshtml" />
+    <Content Include="Views\AgenteDoador\Indice2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

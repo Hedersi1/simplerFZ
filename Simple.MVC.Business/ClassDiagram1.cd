@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Simple.MVC.Business.FZ.AgentePerfil">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FZ\AgentePerfil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Beneficiado">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAEgAACAIAAAIAASAAAAAAAAAIAAAAAABEIA=</HashCode>
+      <FileName>FZ\Beneficiado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Beneficio">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAABABAAAAAAAAAEAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>FZ\Beneficio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Cidade">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAg=</HashCode>
+      <FileName>FZ\Cidade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Doacao">
+    <Position X="6.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAEAAAAAAgQIIAAIAAgAAABBACAABAAAEAAI=</HashCode>
+      <FileName>FZ\Doacao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.DoacaoBeneficiario">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBIAAAAAAAEAAA=</HashCode>
+      <FileName>FZ\DoacaoBeneficiario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.DoacaoHistorico">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAgAAAAAAAAABAABBAAAAAAQAEAAA=</HashCode>
+      <FileName>FZ\DoacaoHistorico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Estado">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQACAAAAAAAAAAAAAgAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>FZ\Estado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Pais">
+    <Position X="6.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>FZ\Pais.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Patrocinador">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>FZ\Patrocinador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.Pessoa">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAQAAGAAACAAAAAIAACAAAAAAAAAAgAEAAEREII=</HashCode>
+      <FileName>FZ\Pessoa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.PessoaFisica">
+    <Position X="1.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>FZ\PessoaFisica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.PessoaJuridica">
+    <Position X="3.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FZ\PessoaJuridica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.PessoaPerfil">
+    <Position X="9.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>FZ\PessoaPerfil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.PessoaStatus">
+    <Position X="11.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FZ\PessoaStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.SituacaoBeneficiado">
+    <Position X="4.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FZ\SituacaoBeneficiado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Simple.MVC.Business.FZ.SituacaoDoacao">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FZ\SituacaoDoacao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

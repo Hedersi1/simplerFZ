@@ -42,6 +42,12 @@ namespace Simple.MVC.WEB.Seguranca.Controllers
             return View();
         }
 
+        [Autorize(Roles = "Seguranca.AgenteDoador.Indice")]
+        public ActionResult Indice2()
+        {
+            return View();
+        }
+
         [Autorize(Roles = "Seguranca.AgenteDoador.Detalhes")]
         public ActionResult Detalhes(int id)
         {

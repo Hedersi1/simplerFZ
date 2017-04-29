@@ -9,7 +9,7 @@ namespace Simple.MVC.WEB
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Default","{controller}/{action}/{id}",new { controller = "Inicio", action = "Indice", id = UrlParameter.Optional },new string[] { "Simple.MVC.WEB.Controllers" }
+            routes.MapRoute("Default","{controller}/{action}/{id}",new { controller = "Site", action = "Indice", id = UrlParameter.Optional },new string[] { "Simple.MVC.WEB.Controllers" }
             );
         }
     }
