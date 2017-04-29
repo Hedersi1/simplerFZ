@@ -1,10 +1,10 @@
-﻿@model List<Simple.MVC.Business.FZ.Beneficiado>
+﻿@model List<Simple.MVC.Business.FZ.Doacao>
 
-@{ ViewBag.Title = "Beneficiado"; }
+@{ ViewBag.Title = "Minhas Doações"; }
 <div class="page-header">
     <h1>@ViewBag.Title</h1>
     <div class="pull-right novo-page-header">
-        <a title="Beneficiado" href="@Url.Action("Criar", "Beneficiado")"><i title="Novo" class="fa fa-plus-circle fa-3x"></i><span class="hide"></span></a>
+        <a title="Doacao" href="@Url.Action("Criar", "Doacao")"><i title="Novo" class="fa fa-plus-circle fa-3x"></i><span class="hide"></span></a>
     </div>
 </div>
 
@@ -13,20 +13,18 @@
 <table id="tbDados" class="table table-hover">
     <thead class="tb-primary">
         <tr>
-            <th>Id</th>
-            <th>Responsável</th>
-            <th>CPF</th>
-            <th>Cidade</th>
-            <th>Situação</th>
+            <th>Data</th>
+            <th>Período Disponível - Início</th>
+            <th>Período Disponível - Término</th>
             <th class="acoes">Ações</th>
         </tr>
     </thead>
 </table>
 
 <div class="hidden" id="action-form-list">
-    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Detalhes", "Beneficiado")/{_Id_}"> <i title="Visualizar" class="fa fa-search fa-lg"></i><span class="hide">Visualizar</span></a> |
-    <a href="@Url.Action("Editar", "Beneficiado")/{_Id_}"> <i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide"></span></a> |
-    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Excluir", "Beneficiado")/{_Id_}"><i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide"></span></a>
+    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Detalhes", "Doacao")/{_Id_}"> <i title="Visualizar" class="fa fa-search fa-lg"></i><span class="hide">Visualizar</span></a> |
+    <a href="@Url.Action("Editar", "Doacao")/{_Id_}"> <i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide"></span></a> |
+    <a class="btnModal" href="javascript:;" data-href="@Url.Action("Excluir", "Doacao")/{_Id_}"><i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide"></span></a>
 </div>
 @section head{
     <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
@@ -41,11 +39,9 @@
         ct.ActionUrl = '@Url.Action("Indice")';
         ct.CustomParameters = [{ 'name': 'searchText', 'element': $("#filtro") }],
         ct.Columns = [
-            { "data": "Id" },
-            { "data": "NomeResponsavel" },
-            { "data": "CPF" },
-            { "data": "Cidade.Nome" },
-            { "data": "SituacaoBeneficiado.Descricao" },
+            { "data": "Data" },
+            { "data": "InicioDisponibilidadeEntrega" },
+            { "data": "TerminoDisponibilidadeEntrega" },
             {
                 "data": "Id",
                 "sortable": false,

@@ -1,0 +1,54 @@
+﻿@model Simple.MVC.Business.Seguranca.Doacao
+@using Simple.MVC.Business.Util;
+@{
+    ViewBag.Title = "Excluir - Doação";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Id:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Agente Doador:</dt>
+                <dd>&nbsp;@Model.Pessoa.Nome</dd>
+                <dt>Agente Fome Zero:</dt>
+                <dd>&nbsp;@Model.PessoaFisica.CPF</dd>
+                <dt>Data:</dt>
+                <dd>&nbsp;@Model.Data</dd>
+                <dt>Possui Alimento Perecível?:</dt>
+                <dd>&nbsp;@Model.PossuiPerecivel</dd>
+                <dt>Alimentos Necessitam de Refrigeração?:</dt>
+                <dd>&nbsp;@Model.NecessitaRefrigeracao</dd>
+                <dt>Alimentos Necessitam de Congelamento?:</dt>
+                <dd>&nbsp;@Model.NecessitaCongelamento</dd>
+                <dt>Latitude:</dt>
+                <dd>&nbsp;@Model.Latitude</dd>
+                <dt>Possui algum alimento com data de vencimento próxima?:</dt>
+                <dd>&nbsp;@Model.PossuiVencimentoProximo</dd>
+                <dt>Peso Aproximado?:</dt>
+                <dd>&nbsp;@Model.PesoAproximado</dd>
+                <dt>Período Disponível - Início:</dt>
+                <dd>&nbsp;@Model.InicioDisponibilidadeEntrega</dd>
+                <dt>Período Disponível - Término:</dt>
+                <dd>&nbsp;@Model.TerminoDisponibilidadeEntrega</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </p>
+            }
+        </div>
+    </div>
+</div>
+

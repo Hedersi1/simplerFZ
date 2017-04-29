@@ -12,9 +12,9 @@ using System.Web.Mvc;
 
 namespace Simple.MVC.WEB.Controllers
 {
-    public class BeneficiadoController : Controller
+    public class DoacaoController : Controller
     {
-        [Autorize(Roles = "Seguranca.Beneficiado.Indice")]
+        [Autorize(Roles = "Seguranca.Doacao.Indice")]
         public ActionResult Indice()
         {
             try
@@ -23,15 +23,15 @@ namespace Simple.MVC.WEB.Controllers
                 {
                     var parametros = JDataTable.GetDataTableParams(Request);
 
-                    var dados = BeneficiadoRepository.List(x => x.Id, parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize, x => x.SituacaoBeneficiado, x=>x.Cidade );
-                    var total = BeneficiadoRepository.Count(x => x.Id, parametros.SearchText);
+                    var dados = DoacaoRepository.List(x => x.Id, parametros.SearchText, parametros.Order, parametros.Start, parametros.PageSize, x => x.Pessoa , x => x.PessoaFisica );
+                    var total = DoacaoRepository.Count(x => x.Id, parametros.SearchText);
 
                     return Json(new
                     {
                         draw = parametros.Draw,
                         recordsTotal = total,
                         recordsFiltered = total,
-                        data = dados.Select(x => new {Id = x.Id, NomeResponsavel = x.NomeResponsavel, CPF = x.CPF, Cidade = new { Nome = x.Cidade.Nome }, IdSituacaoBeneficiado = x.IdSituacaoBeneficiado, SituacaoBeneficiado = x.SituacaoBeneficiado })
+                        data = dados.Select(x => new {Id = x.Id, Data = x.Data.ToString("dd/MM/yyyy HH:mm"), InicioDisponibilidadeEntrega = x.InicioDisponibilidadeEntrega.ToString("dd/MM/yyyy HH:mm:ss"), TerminoDisponibilidadeEntrega = x.TerminoDisponibilidadeEntrega.ToString("dd/MM/yyyy HH:mm:ss") })
                     },
                     JsonRequestBehavior.AllowGet);
                 }
@@ -43,12 +43,12 @@ namespace Simple.MVC.WEB.Controllers
             return View();
         }
 
-        [Autorize(Roles = "Seguranca.Beneficiado.Detalhes")]
+        [Autorize(Roles = "Seguranca.Doacao.Detalhes")]
         public ActionResult Detalhes(int id)
         {
             try
             {
-                var obj = BeneficiadoRepository.FirstOrDefault(id, x => x.SituacaoBeneficiado );
+                var obj = DoacaoRepository.FirstOrDefault(id, x => x.Pessoa , x => x.PessoaFisica );
                 return View(obj);
             }
             catch (Exception ex)
@@ -58,16 +58,16 @@ namespace Simple.MVC.WEB.Controllers
             }
         }
 
-        [Autorize(Roles = "Seguranca.Beneficiado.Criar")]
+        [Autorize(Roles = "Seguranca.Doacao.Criar")]
         public ActionResult Criar()
         {
             CarregarViewBags();
-            return View(new Beneficiado());
+            return View(new Doacao { InicioDisponibilidadeEntrega = DateTime.Now, TerminoDisponibilidadeEntrega = DateTime.Now.AddDays(2) });
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Beneficiado.Criar")]
-        public ActionResult Criar(Beneficiado obj)
+        [Autorize(Roles = "Seguranca.Doacao.Criar")]
+        public ActionResult Criar(Doacao obj)
         {
             try
             {
@@ -75,11 +75,9 @@ namespace Simple.MVC.WEB.Controllers
                 if (ModelState.IsValid)
                 {
                     var pessoa = PessoaRepository.List(x => x.IdUsuario, Util.GetUsuarioLogado().Id, "Id ASC").FirstOrDefault();
+                    obj.IdAgenteDoador = pessoa.Id;
 
-                    obj.IdCidade = pessoa.IdCidade;
-                    obj.IdAgenteDistribuidor = (pessoa is PessoaFisica) ? ((PessoaFisica)pessoa).IdAgenteDistribuidor.Value : pessoa.Id;
-                    
-                    BeneficiadoRepository.Save(obj);
+                    DoacaoRepository.Save(obj);
                     TempData["s"] = "Item Inserido com sucesso!";
 
                     return RedirectToAction("Criar");
@@ -94,13 +92,13 @@ namespace Simple.MVC.WEB.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Beneficiado.Editar")]
+        [Autorize(Roles = "Seguranca.Doacao.Editar")]
         public ActionResult Editar(int id)
         {
             try
             {
                 CarregarViewBags();
-                var obj = BeneficiadoRepository.FirstOrDefault(id);
+                var obj = DoacaoRepository.FirstOrDefault(id);
                 return View(obj);
             }
             catch (Exception ex)
@@ -111,14 +109,14 @@ namespace Simple.MVC.WEB.Controllers
         }
 
         [HttpPost]
-        [Autorize(Roles = "Seguranca.Beneficiado.Editar")]
-        public ActionResult Editar(Beneficiado obj)
+        [Autorize(Roles = "Seguranca.Doacao.Editar")]
+        public ActionResult Editar(Doacao obj)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    BeneficiadoRepository.Save(obj);
+                    DoacaoRepository.Save(obj);
                     TempData["s"] = "Alteração Realizada com sucesso!";
                     return RedirectToAction("Indice");
                 }
@@ -132,12 +130,12 @@ namespace Simple.MVC.WEB.Controllers
             return View(obj);
         }
 
-        [Autorize(Roles = "Seguranca.Beneficiado.Excluir")]
+        [Autorize(Roles = "Seguranca.Doacao.Excluir")]
         public ActionResult Excluir(int id = 0)
         {
             try
             {
-                var obj = BeneficiadoRepository.FirstOrDefault(id, x => x.SituacaoBeneficiado );
+                var obj = DoacaoRepository.FirstOrDefault(id, x => x.Pessoa , x => x.PessoaFisica );
                 return View(obj);
             }
             catch (Exception ex)
@@ -148,12 +146,12 @@ namespace Simple.MVC.WEB.Controllers
         }
 
         [HttpPost, ActionName("Excluir")]
-        [Autorize(Roles = "Seguranca.Beneficiado.Excluir")]
+        [Autorize(Roles = "Seguranca.Doacao.Excluir")]
         public ActionResult ConfirmarExclusao(int id)
         {
             try
             {
-                BeneficiadoRepository.Delete(id);
+                DoacaoRepository.Delete(id);
                 TempData["s"] = "Exclusão Realizada com sucesso!";
             }
             catch (Exception ex)
@@ -165,7 +163,23 @@ namespace Simple.MVC.WEB.Controllers
         }
         public void CarregarViewBags()
         {
-            ViewBag.IdSituacaoBeneficiado = SituacaoBeneficiadoRepository.List("Descricao ASC", 0, 150).Select(x => new { x.Id, x.Descricao });
+            ViewBag.IdAgenteDoador = PessoaRepository.List("Nome ASC", 0, 150).Select(x => new { x.Id, x.Nome });
+            ViewBag.IdAgenteFZ = PessoaFisicaRepository.List("CPF ASC", 0, 150).Select(x => new { x.Id, x.CPF });
+        }
+
+        public ActionResult Mapa()
+        {
+            return View();
+        }
+
+        public ActionResult GetDoacoes()
+        {
+            if(Request.IsAjaxRequest())
+            {
+                return Json(DoacaoRepository.List().Select(x => new { lat = x.Latitude, lng = x.Longitude }), JsonRequestBehavior.AllowGet);
+            }
+
+            return RedirectToAction("Mapa");
         }
     }
 }

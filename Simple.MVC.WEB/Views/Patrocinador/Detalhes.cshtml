@@ -1,4 +1,4 @@
-﻿@model Simple.MVC.Business.Seguranca.Patrocinador
+﻿@model Simple.MVC.Business.FZ.Patrocinador
 @using Simple.MVC.Business.Util;
 
 @{
@@ -19,7 +19,7 @@
                 <dt>Nome:</dt>
                 <dd>&nbsp;@Model.Nome</dd>
                 <dt>Logomarca:</dt>
-                <dd>&nbsp;@Model.Logomarca</dd>
+                <dd><img src="@Url.Content("~/Upload/Files/"+ Model.Logomarca)" /></dd>
             </dl>
         </div>
     </div>

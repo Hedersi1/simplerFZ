@@ -45,8 +45,14 @@ namespace Simple.MVC.Business.FZ
 
         [Display(Name="Longitude")]
         public String Longitude { get; set; }
+
         [ForeignKey("IdSituacaoBeneficiado")]
         public SituacaoBeneficiado SituacaoBeneficiado { get; set; }
+
+        [ForeignKey("IdCidade")]
+        public Cidade Cidade { get; set; }
+
+        public int IdAgenteDistribuidor { get; set; }
     }
 }
 

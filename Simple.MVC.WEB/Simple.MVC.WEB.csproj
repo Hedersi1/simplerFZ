@@ -206,6 +206,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Seguranca\Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\DoacaoController.cs" />
     <Compile Include="Controllers\BeneficiadoController.cs" />
     <Compile Include="Controllers\BeneficioController.cs" />
     <Compile Include="Areas\Seguranca\Controllers\ConfiguracaoController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\PatrocinadorController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,6 +242,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\ie8.css" />
+    <Content Include="assets\css\images\bg.png" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\js\ie\backgroundsize.min.htc" />
+    <Content Include="assets\js\ie\html5shiv.js" />
+    <Content Include="assets\js\ie\PIE.htc" />
+    <Content Include="assets\js\ie\respond.min.js" />
+    <Content Include="assets\js\jquery.dropotron.min.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\skel-viewport.min.js" />
+    <Content Include="assets\js\skel.min.js" />
+    <Content Include="assets\js\util.js" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\EntityFramework.dll" />
@@ -2100,6 +2118,15 @@
     <Content Include="Areas\Seguranca\Views\Usuario\MudarSenha.cshtml" />
     <Content Include="Areas\Seguranca\Views\Web.config" />
     <Content Include="Areas\Seguranca\Views\_ViewStart.cshtml" />
+    <Content Include="images\pic01.jpg" />
+    <Content Include="images\pic02.jpg" />
+    <Content Include="images\pic03.jpg" />
+    <Content Include="images\pic04.jpg" />
+    <Content Include="images\pic05.jpg" />
+    <Content Include="images\pic06.jpg" />
+    <Content Include="images\pic07.jpg" />
+    <Content Include="images\pic08.jpg" />
+    <Content Include="images\pic089.jpg" />
     <Content Include="Scripts\bootstrap-treeview.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr\event.js" />
@@ -2121,6 +2148,22 @@
     <Content Include="Areas\Seguranca\Views\Gerador\Indice.cshtml" />
     <Content Include="Areas\Seguranca\Views\Gerador\Excluir.cshtml" />
     <Content Include="Areas\Seguranca\Views\Gerador\Detalhes.cshtml" />
+    <Content Include="Views\Doacao\Criar.cshtml" />
+    <Content Include="Views\Doacao\Detalhes.cshtml" />
+    <Content Include="Views\Doacao\Editar.cshtml" />
+    <Content Include="Views\Doacao\Excluir.cshtml" />
+    <Content Include="Views\Doacao\Indice.cshtml" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\sass\ie8.scss" />
+    <Content Include="assets\sass\libs\_functions.scss" />
+    <Content Include="assets\sass\libs\_mixins.scss" />
+    <Content Include="assets\sass\libs\_skel.scss" />
+    <Content Include="assets\sass\libs\_vars.scss" />
+    <Content Include="assets\sass\main.scss" />
     <None Include="bin\Simple.MVC.WEB.dll.config" />
     <Content Include="Content\dhtmlxGantt_v4.1.0\connector\base_connector.php" />
     <Content Include="Content\dhtmlxGantt_v4.1.0\connector\chart_connector.php" />
@@ -2437,6 +2480,8 @@
     <Content Include="Views\Patrocinador\Editar.cshtml" />
     <Content Include="Views\Patrocinador\Excluir.cshtml" />
     <Content Include="Views\Patrocinador\Indice.cshtml" />
+    <Content Include="Views\Doacao\Mapa.cshtml" />
+    <Content Include="Views\Site\Indice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,84 @@
+﻿@model Simple.MVC.Business.FZ.Doacao
+@using Simple.MVC.Business.Util;
+@{ 
+    ViewBag.Title = "Informar - Doação";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary("Validação", new { @class="alert alert-danger summary" })
+    @Html.HiddenFor(model => model.Data)
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        @Html.CheckBoxFor(m => m.PossuiPerecivel)
+                    </span>
+                    <input class="form-control " readonly="readonly" value="Possui Alimento Perecível?*" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        @Html.CheckBoxFor(m => m.NecessitaRefrigeracao)
+                    </span>
+                    <input class="form-control " readonly="readonly" value="Alimentos Necessitam de Refrigeração?*" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        @Html.CheckBoxFor(m => m.NecessitaCongelamento)
+                    </span>
+                    <input class="form-control " readonly="readonly" value="Alimentos Necessitam de Congelamento?*" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        @Html.CheckBoxFor(m => m.PossuiVencimentoProximo)
+                    </span>
+                    <input class="form-control " readonly="readonly" value="Possui algum alimento com data de vencimento próxima?*" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.PesoAproximado)*
+                @Html.EditorFor(model => model.PesoAproximado, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.InicioDisponibilidadeEntrega)*
+                @Html.EditorFor(model => model.InicioDisponibilidadeEntrega, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.TerminoDisponibilidadeEntrega)*
+                @Html.EditorFor(model => model.TerminoDisponibilidadeEntrega, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+    </div>
+    <div class="form-group well">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="@Url.Action("Indice")" class="btn btn-default">Voltar</a>
+    </div>
+}
+
+@section scripts{}
+

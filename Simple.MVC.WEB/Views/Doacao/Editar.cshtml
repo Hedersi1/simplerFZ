@@ -1,0 +1,89 @@
+﻿@model Simple.MVC.Business.Seguranca.Doacao
+@using Simple.MVC.Business.Util;
+@{ 
+    ViewBag.Title = "Editar - Doação";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+@Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary("Validação", new { @class="alert alert-danger summary" })
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IdAgenteDoador)*
+                @Html.DropDownListFor(model => model.IdAgenteDoador, new SelectList(ViewBag.IdAgenteDoador, "Id", "Nome", Model.IdAgenteDoador), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IdAgenteFZ)
+                @Html.DropDownListFor(model => model.IdAgenteFZ, new SelectList(ViewBag.IdAgenteFZ, "Id", "CPF", Model.IdAgenteFZ), "Selecione... ", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Data)*
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.PossuiPerecivel)*
+                @Html.EditorFor(model => model.PossuiPerecivel, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.NecessitaRefrigeracao)*
+                @Html.EditorFor(model => model.NecessitaRefrigeracao, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.NecessitaCongelamento)*
+                @Html.EditorFor(model => model.NecessitaCongelamento, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Latitude)*
+                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.PossuiVencimentoProximo)*
+                @Html.EditorFor(model => model.PossuiVencimentoProximo, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.PesoAproximado)*
+                @Html.EditorFor(model => model.PesoAproximado, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.InicioDisponibilidadeEntrega)*
+                @Html.EditorFor(model => model.InicioDisponibilidadeEntrega, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.TerminoDisponibilidadeEntrega)*
+                @Html.EditorFor(model => model.TerminoDisponibilidadeEntrega, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+    </div>
+    <div class="form-group well">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="@Url.Action("Indice")" class="btn btn-default">Voltar</a>
+    </div>
+}
+
+@section scripts{}
+

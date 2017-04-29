@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace Simple.MVC.WEB.Controllers
 {
-    public class MapaController : Controller
+    public class SiteController : Controller
     {
-
-        // GET: Mapa
+        // GET: Site
         public ActionResult Indice()
         {
             return View();

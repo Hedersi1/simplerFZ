@@ -33,6 +33,8 @@ namespace Simple.MVC.Business
         public DbSet<Estado> Estado { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Patrocinador> Patrocinador { get; set; }
+        public DbSet<Beneficiado> Beneficiado { get; set; }
+        public DbSet<Doacao> Doacao { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
