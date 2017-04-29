@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Simple.MVC.Security.Data.SEMenu>
+@{
+    ViewBag.Title = "Menus";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+    <div class="pull-right novo-page-header">
+        <a href="@Url.Action("Criar","Menu")" title="Novo Menu"><i class="fa fa-plus-circle fa-3x" data-original-title="Novo Menu"></i><span class="hide">Novo</span></a>
+    </div>
+</div>
+@RenderPage("~/Views/Shared/_filterIndex.cshtml")
+<div class="panel panel-primary table-responsive">
+    <table class="table table-hover">
+        <thead class="tb-primary">
+            <tr >
+                <th>
+                    Sistema
+                </th>
+                <th>
+                    Pai
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Action
+                </th>
+                <th>
+                    Controller
+                </th>
+                <th>
+                    Ícone
+                </th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SESistema.NomeExibicao)
+                </td>
+                <td>
+                    @(item.IdMenuPai != null ? item.SEMenu2.Nome : null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Acao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Controlador)
+                </td>
+                <td>
+                    <i title="@item.Nome" class="fa @item.ClasseIcone fa-lg"></i><span class="hide">@item.Nome</span>
+                </td>
+                <td>
+                    <a href="javascript:;" class="btnModal" data-href="@Url.Action("Detalhes", "Menu", new { id = item.Id })" title="@item.Nome">
+                        <i title="Visualizar" class="fa fa-search fa-lg"></i><span class="hide">Visualizar</span></a>
+
+                    <a href="@Url.Action("Editar", "Menu", new { id = item.Id })">
+                        <i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide">Editar</span></a>
+
+                    <a href="javascript:;" class="btnModal" data-href="@Url.Action("Excluir", "Menu", new { id = item.Id })">
+                        <i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide">Excluir</span></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@RenderPage("~/Views/Shared/_paginate.cshtml")

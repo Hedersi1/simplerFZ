@@ -1,0 +1,30 @@
+﻿@using Simple.MVC.Security.Data;
+@{
+    var MySists = Simple.MVC.Security.Data.SimpleRoleProvider.GetApplicationsForUser(User.Identity.Name, Membership.ApplicationName);
+    var dbs = new HackathonEntities();
+}
+<ul class="nav navbar-nav navbar-left" title="Meus Módulos">
+    <li class="dropdown current-user">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <h4 class="pull-left nome-sistema">@dbs.SESistema.First(s => s.Nome.Equals(Membership.ApplicationName)).NomeExibicao </h4>
+            @if (MySists != null && MySists.Any())
+            {<b class="caret"></b>}
+        </a>
+        @if (MySists != null && MySists.Any())
+        {
+            <ul class="dropdown-menu">
+                @foreach (var s in MySists)
+                {
+                    <li><a href="@s.Caminho"><i class="fa @s.Icone"></i> @s.Descricao</a></li>
+                }
+                <li class="divider"></li>
+                <li><a href="/"><i class="fa fa-chevron-right"></i> Painel de Sistemas</a></li>
+            </ul>
+        }
+    </li>
+</ul>
+<script>
+    $('#ulMySists').tooltip({
+        placement: "right"
+    })
+</script>

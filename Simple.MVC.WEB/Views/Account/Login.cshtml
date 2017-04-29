@@ -1,0 +1,161 @@
+﻿@model Simple.MVC.Security.LoginModel
+@{
+    ViewBag.Title = "Simple";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="Simple - Login">
+    <meta name="author" content="Simple">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--STYLESHEETS-->
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css-account/style.css" rel="stylesheet" />
+    <link href="~/Content/pnotify-1.2.0/pnotify.custom.min.css" rel="stylesheet" />
+    <!--SCRIPTS-->
+    <script type="text/javascript" src="~/Content/Scripts/jquery-1.11.0.js"></script>
+    <script src="~/Content/pnotify-1.2.0/jquery.pnotify.js"></script>
+
+
+    <style type="text/css"></style>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Content/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Content/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Content/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Content/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Content/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Content/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/Content/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="wrapper">
+            <header class="clearfix">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        <h3 class="brand">
+                            <a href="~/" title="Simple - Login">
+                                <img class="img-responsive" src="~/Content/img/simple_horizontal.png" />
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col-md-7 col-sm-7">
+                        <ul class="list-inline text-right">
+                            <li><a class="tips" data-placement="bottom" data-toggle="tooltip" href="http://www.gerenciamentosimples.com" title="Ir para o Simple"><i class="fa fa-globe"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <article>
+                <div class="tab-content-wrapper">
+                    <div class="tb-content" id="login-home">
+                        <div class="login-form">
+
+                            <div class="box">
+                                <span class="section-icon"><i class="fa fa-user fa-2x"></i></span>
+                                <h2>Olá, bem-vindo</h2>
+                                <p>
+                                    Informe abaixo os seus dados para acesso.
+                                </p>
+                            </div>
+
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-dark " }))
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="hidden" name="ReturnUrl" id="ReturnUrl" value="@ViewBag.ReturnUrl" />
+                                        @Html.TextBoxFor(model => model.login, new { @autofocus = "", @placeholder = "Usuário ou E-mail*", @required = "true", @class = "form-control input-lg" })
+                                    </div>
+                                    <div class="col-md-12">
+                                        @Html.PasswordFor(model => model.password, new { @placeholder = "Senha*", @required = "true", @class = "form-control input-lg" })
+                                    </div>
+
+                                </div>
+
+                                <button class="btn-login btn-lg btn-primary btn-block" type="submit">Entrar</button>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="tb-content" id="recuperar-senha">
+                        <div class="box">
+                            <span class="section-icon"><i class="fa fa-life-ring fa-2x"></i></span>
+                            <h4>Recuperar Senha</h4>
+                            <p>Para recupar, informe no campo abaixo o seu E-mail, CPF ou Usuário. Caso você seja identificado em nosso sistema, as instruções para redefinição de senha serão enviadas para seu E-mail Alternativo.</p>
+                        </div>
+                        @using (Html.BeginForm("RecuperarSenha", "Account", FormMethod.Post, new { @class = "form-dark login-form"}))
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input id="ident" name="ident" type="text" class="form-control input-lg" required placeholder="Digite aqui sua identificação" autofocus />
+                                </div>
+                            </div>
+                            <button class="btn-login btn-lg btn-primary btn-block" type="submit"><i class="fa fa-paper-plane-o fa-fw"></i>Recuperar senha</button>
+                        }
+                    </div>
+                </div>
+            </article>
+
+            <footer>
+                <!-- tabs -->
+                <ul class="tabs clearfix">
+                    <li><a href="#login-home" data-toggle="tab" title="Acessar Simple"><i class="fa fa-user"></i>Acesso Simple</a></li>
+                    <li><a href="#recuperar-senha" data-toggle="tab" title="Recuperar Senha"><i class="fa fa-life-ring"></i>Recuperar Senha</a></li>
+                </ul>
+            </footer>
+
+        </div>
+        <!--end-of-wraper-->
+
+    </div>
+    <!--end-of-container-->
+    <!--Notify-->
+    <div class="row msg">
+        @RenderPage("~/Views/Shared/_barraMensagens.cshtml")
+    </div>
+
+    <!--SCRIPTS-->
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Load Animation
+            $('body').delay(400).animate({ opacity: '1' }, 900);
+
+            // tabs
+            $('.tab-content-wrapper .tb-content').not('.tab-content-wrapper .tb-content:first').hide();
+            $('.tabs li a[href^=#]').click(function (event) {
+                event.preventDefault();
+                $(this.hash).prev().delay(100).slideUp('slow');
+                $('.tb-content').delay(200).slideUp('slow');
+                $(this.hash).delay(300).slideDown('slow');
+            });
+
+        });
+    </script>
+</body>
+</html>

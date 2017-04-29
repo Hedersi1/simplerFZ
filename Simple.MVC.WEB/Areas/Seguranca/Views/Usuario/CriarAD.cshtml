@@ -1,0 +1,127 @@
+﻿@model Simple.MVC.Security.Data.SEUsuario
+
+<div class="page-header">
+    <h1>Criar conta</h1>
+</div>
+<script src="~/Content/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<style>
+    .ui-autocomplete-loading {
+        background: white url('../Content/img/imgloader.gif') right center no-repeat;
+    }
+
+    .ui-autocomplete {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+@using (Html.BeginForm("Criar", "Pessoa", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Sid)
+    @Html.HiddenFor(m => m.Guid)
+    @Html.HiddenFor(m => m.Nome)
+    @Html.HiddenFor(m => m.Login)
+    @Html.HiddenFor(m => m.CGPessoa.Email)   
+    @Html.HiddenFor(m => m.CPF)
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <label>Pessoa</label>
+            <div class="input-group">
+                <input type="text" id="pessoa" name="pessoa" class="form-control lenLimit" autofocus required maxlength="64" placeholder="Nome, e-mail ou login" />
+                <span class="input-group-btn">
+                    <button id="submit" type="submit" class="btn btn-primary">Enviar</button>
+                </span>
+            </div>
+            <div class="row">
+                <br />
+                <br />
+                <br />
+                <div id="DadosAcad" style="display: none;">
+                    <h4>SEUsuario Selecionada</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>Nome</dt>
+                        <dd id="nomeAD"></dd>
+                        <dt>Login</dt>
+                        <dd id="loginAD"></dd>
+                        <dt>Sid</dt>
+                        <dd id="sidAD"></dd>
+                        <dt>Guid</dt>
+                        <dd id="guidAD"></dd>
+                        <dt>E-mail</dt>
+                        <dd id="emailAD"></dd>  
+                        <dt>Cpf</dt>
+                        <dd id="cpfAD"></dd>
+
+                    </dl>
+
+
+                </div>
+            </div>
+        </div>
+    </div>    
+}
+
+<script>
+    $("#pessoa").keyup(function () {
+        if ($("#pessoa").val().length <= 1) {
+            $("#DadosAcad").fadeOut(600);
+            $("#submit").attr("disabled", "");
+            $("#Sid").val(null);
+            $("#Guid").val(null);
+            $("#nome").val(null);
+            $("#login").val(null);
+            $("#email").val(null);
+            $("#cpf").val(null);
+        }
+    });
+
+    $("#pessoa").autocomplete({
+        minLength: 3,
+        source: '@Url.Action("findInAD", "Ajax")',
+        focus: function (event, ui) {
+            $("#pessoa").val(ui.item[0].Nome);
+            return false;
+        },
+        select: function (event, ui) {
+            $("#pessoa").val(ui.item[0].Nome);
+
+            $("#Sid").val(ui.item[0].Sid);
+            $("#Guid").val(ui.item[0].Guid);
+            $("#nome").val(ui.item[0].Nome);
+            $("#login").val(ui.item[0].Login);
+            $("#email").val(ui.item[0].CGPessoa.Email);
+            $("#cpf").val(ui.item[0].cpf);
+            
+
+            $("#sidAD").html(ui.item[0].Sid);
+            $("#guidAD").html(ui.item[0].Guid);
+            $("#nomeAD").html(ui.item[0].Nome);
+            $("#loginAD").html(ui.item[0].Login);
+            $("#emailAD").html(ui.item[0].CGPessoa.Email);
+            $("#cpfAD").html(ui.item[0].cpf);
+           
+            $("#DadosAcad").css("display", "block").hide().fadeIn(300);
+            $("#submit").attr("disabled", null);
+
+            return false;
+        }
+    })
+    .data("ui-autocomplete")._renderItem = function (ul, item) {
+        if (item[0].Sid == "0") {
+            item.Nome = null;
+            return $("<li>")
+              .append("<a><span style='font-size: 13px; font-weight: bold;'>  " + item[0].Nome + "  </span></a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+        else {
+            return $("<li>")
+              .append("<a><span style='font-size: 16px; font-weight: bold;'>" + item[0].Nome +
+              "</span><br /><span style='font-size: 12px;'> [Login: " + item[0].Login + "] " +
+              "[E-mail: " + item[0].CGPessoa.Email + "] [Cpf: "+item[0].cpf+ " ]</a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+    };
+</script>

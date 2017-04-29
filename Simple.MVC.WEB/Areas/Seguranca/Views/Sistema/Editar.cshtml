@@ -1,0 +1,58 @@
+﻿@using Simple.MVC.Security
+@model Simple.MVC.Security.Data.SESistema
+@{  ViewBag.Title = "Editar Sistema";}
+
+<div class="page-header">
+    <h1>Editar Sistema</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.Hidden("todosIps", (string)ViewBag.ip)
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                @Html.TextBoxFor(x => x.Nome, new { @class = "form-control lenLimit", @required = "", @placeholder = "Nome", @maxlength = "64" })
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Nome de Exibição</label>
+                @Html.TextBoxFor(x => x.NomeExibicao, new { @class = "form-control lenLimit", @required = "", @placeholder = "Descrição", @maxlength = "64" })
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Descrição</label>
+                @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control lenLimit", @required = "", @placeholder = "Descrição", @maxlength = "64" })
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group iconpicker-container">
+                <label>Ícone</label>
+                <div class="input-group iconpicker-container">
+                    @Html.TextBoxFor(model => model.Icone, "", new { @class = "form-control icp icp-auto iconpicker-element iconpicker-input", @value = "fa-cog", @required = "", @maxlength = "25" })
+                    <span class="input-group-addon"><a class="fa fa-archive"></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Caminho</label>
+                @Html.TextBoxFor(model => model.Caminho, new { @class = "form-control lenLimit", @required = "", @placeholder = "Caminho", @maxlength = "64" })
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>ID</label>
+                @Html.TextBoxFor(model => model.IdAplicacao, new { @class = "form-control lenLimit", @placeholder = "Id aplicação", @maxlength = "64" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group well">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="@Url.Action("Indice")" class="btn btn-default">Voltar</a>
+    </div>
+}

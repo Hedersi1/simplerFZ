@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "Gestão de Papéis de um Grupo";
+}
+
+@section head {
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+        .ui-autocomplete-loading {
+            background: white url('../Content/img/imgloader.gif') right center no-repeat;
+        }
+
+        .ui-autocomplete {
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Selecione o Sistema</label>
+            @Html.DropDownList("sistemas", ViewBag.sys as SelectList, new { @class = "form-control", @required = "" })
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label>Selecione o Grupo</label>
+            @Html.DropDownList("grupos", ViewBag.groups as SelectList, new { @class = "form-control", @required = "" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Papéis no Sistema Selecionado</h3>
+                    <input type="checkbox" id="selectAll" /> Selecionar todos<br />
+                </div>
+                <div id="papeis" class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="form-group well">
+            <button type="button" id="btnSubmit" class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #papeis {
+        padding: 10px;
+        text-align: left;
+        overflow: auto;
+        max-height: 300px;
+        min-height: 300px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        CarregaPapeis();
+        MarcaPapeisdoSEGrupo();
+        document.getElementById('selectAll').checked = ($("input[id=papeis]:checked").length == $("input[id=papeis]").length);
+    });
+
+    $("#selectAll").change(function () {
+        $(".checkbox label input").prop('checked', $(this).prop("checked"));
+    });
+
+    $("#sistemas").change(function () {
+        CarregaPapeis();
+        MarcaPapeisdoSEGrupo();
+    });
+
+    $("#grupos").change(function () {
+        MarcaPapeisdoSEGrupo();
+    });
+
+    $("#btnSubmit").click(function () {
+        var lista = [];
+        $('#papeis input:checked').each(function () {
+            lista.push(this.name);
+        });
+        $.ajax({
+            url: '@Url.Action("PapelGrupo", "Papel")',
+            type: 'POST',
+            data: JSON.stringify({ idsPapeis: lista, IdGrupo: $('#grupos').find(":selected").val(), idSistema: $("#sistemas").find(":selected").val() }),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (result) {
+                $.pnotify({
+                    text: "Informações atualizadas com sucesso!",
+                    type: "success",
+                    closer: true
+                });
+            },
+            error: function (result) {
+                console.log(result);
+                $.pnotify({
+                    text: "Ocorreu um erro.",
+                    type: "error",
+                    closer: true
+                });
+            }
+        });
+    });
+
+    function CarregaPapeis() {
+        $.ajax({
+            url: '@Url.Action("GetRolesForSystem", "Ajax")',
+            type: 'GET',
+            data: { Id: $('#sistemas').find(":selected").val() },
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (result) {
+                $("#papeis").empty();
+                $(result).each(function () {
+                    $("#papeis")
+                        .append("<div class='col-lg-6'><div class='checkbox'><label><input type='checkbox' id=" + $(this).prop("Id") +
+                        " name=" + $(this).prop("Id") + ">" + $(this).prop("Nome") + "</label></div></div>");
+                });
+            }
+        });
+    }
+
+    function MarcaPapeisdoSEGrupo() {
+        var grupo = $('#grupos').find(":selected").val();
+        var sistema = $('#sistemas').find(":selected").val();
+        if (grupo != "" && sistema != "") {
+            $.get('@Url.Action("PapeisDeUmGrupo", "Papel")',
+                { IdGrupo: grupo, idSistema: sistema },
+                function (data) {
+                    $('#papeis input').prop("checked", false);
+                    $.grep(data, function (e) {
+                        $('#papeis input').each(function () {
+                            if ($(this).prop("id") == e.Id) {
+                                $(this).prop("checked", true);
+                                $(this).hide();
+                                $(this).fadeIn();
+                            }
+                        });
+                    });
+                });
+        }
+    }
+</script>

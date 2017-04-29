@@ -1,0 +1,38 @@
+﻿@model Simple.MVC.Security.Data.SEConfiguracao
+
+@{
+    ViewBag.Title = "Excluir Configuração";
+    Layout = null;
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>ID:</dt>
+                <dd>@Model.Id</dd>
+                <dt>Nome:</dt>
+                <dd>@Model.Nome</dd>
+                <dt>NomeExibicao:</dt>
+                <dd>@Model.NomeExibicao</dd>
+                <dt>Valor:</dt>
+                <dd>@Model.Valor</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </p>
+            }
+        </div>
+    </div>
+</div>
+
+

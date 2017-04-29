@@ -1,0 +1,31 @@
+﻿@model Simple.MVC.Business.Seguranca.Gerador
+@using Simple.MVC.Business.Util;
+
+@{
+    ViewBag.Title = "Detalhes - "+ Model.Tabela;
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Id:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Tabela:</dt>
+                <dd>&nbsp;@Model.Tabela</dd>
+                <dt>Apresentação:</dt>
+                <dd>&nbsp;@Model.Apresentacao</dd>
+                <dt>Classe:</dt>
+                <dd>&nbsp;@Model.Classe</dd>
+                <dt>Área:</dt>
+                <dd>&nbsp;@Model.Area</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+

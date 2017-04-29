@@ -1,0 +1,36 @@
+﻿@model Simple.MVC.Security.Data.SEGrupo
+@{
+    ViewBag.Title = "Editar Grupo";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Guid)
+    @Html.HiddenFor(m => m.SId)
+    @Html.HiddenFor(m => m.Origem)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Nome</label>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control lenLimit", @required = "", @maxlength = "64" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Descrição</label>
+                @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control lenLimit", @required = "", @maxlength = "64" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group well">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="@Url.Action("Indice")" class="btn btn-default">Voltar</a>
+    </div>
+}

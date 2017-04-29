@@ -1,0 +1,30 @@
+﻿@model Simple.MVC.Security.Data.SESistema
+@{
+    ViewBag.Title = "Detalhes do Sistema";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Nome:</dt>
+                <dd>&nbsp;@Model.Nome</dd>
+                <dt>Nome de Exibição:</dt>
+                <dd>&nbsp;@Model.NomeExibicao</dd>
+                <dt>Descrição:</dt>
+                <dd>&nbsp;@Model.Descricao</dd>
+                <dt>Caminho:</dt>
+                <dd>&nbsp;@Model.Caminho</dd>
+                <dt>ID:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Ícone:</dt>
+                <dd>&nbsp;<i class="fa fa-fw @Model.Icone"></i></dd>
+            </dl>
+        </div>
+    </div>
+</div>

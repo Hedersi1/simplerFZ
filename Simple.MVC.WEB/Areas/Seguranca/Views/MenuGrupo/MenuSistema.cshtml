@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Simple.MVC.Security.Data.SEMenu>
+@{
+    Layout = null;
+}
+@if(Model != null)
+{
+    <div class="col-lg-12 sidebar">
+        <ul id="sysMenus" class="nav nav-sidebar list-unstyled" >
+            @foreach (var p in Model.Where(m => m.IdMenuPai == null).OrderBy(o => o.Nome))
+            {
+                <li  class="panel panel-menu" style="max-width:800px">          
+                    <a  data-toggle="collapse" data-parent="#sysMenus" data-target="#s_@p.Id" href="javascript:;">
+                        <i class="fa fa-fw @p.ClasseIcone"></i>@p.Nome
+                    </a>
+                    <ul  class="list-unstyled sub">
+                        @foreach (var f in p.SEMenu1.OrderBy(o => o.Nome))
+                        {
+                            <li data-id="@f.Id" id="li_@f.Id">
+                                <i class="fa fa-fw @f.ClasseIcone"></i>@f.Nome
+                                <a href="javascript:;" class="bntAdd pull-right" onclick="adicionar($('#li_@f.Id'))">
+                                    <i title="Excluir" class="fa fa-plus-circle fa-lg " style="margin-right: 13px;"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}

@@ -1,0 +1,75 @@
+﻿@model Simple.MVC.WEB.Models.AutorizacaoModel
+
+@{
+    ViewBag.Title = "Autorização";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("AutorizarAcao", "Account", FormMethod.Post, new { id = "frmAutorizacao" }))
+            {
+                @Html.ValidationSummary("Validação", new { @class = "alert alert-danger summary" })
+                @Html.HiddenFor(x => x.papel)
+                @Html.HiddenFor(x => x.formId)
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Login*</label>
+                            @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Senha*</label>
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group well">
+                    <button type="button" id="btnContinuarAutorizar" class="btn btn-primary">Continuar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myModal").modal({ keyboard: true });
+        $("#frmAutorizacao").validate();
+        $("#btnContinuarAutorizar").on("click", function () {
+            if ($("#frmAutorizacao").valid()) {
+                $.ajax({
+                    method: "POST",
+                    url: $("#frmAutorizacao").get(0).action,
+                    data: $("#frmAutorizacao").serialize()
+                })
+                .done(function (param1, param2, param3, param4) {
+                    var frm = $("#@Model.formId");
+                    $('<input>').attr({ type: 'hidden', id: 'idAutorizacao', name: 'idAutorizacao', value: param1.idAutorizacao }).appendTo(frm);
+                    frm.submit(); 
+                })
+                .fail(function (param1, param2, param3, param4) {
+                    if (param1.status == 406) {
+                        alert('Digite o login e a senha para continuar.');
+                    }
+                    else if (param1.status == 412) {
+                        alert('Login ou senha incorretos.');
+                    }
+                    else if (param1.status == 405) {
+                        alert('Usuário nao possui permissão para esta operação.');
+                        $('#modal').modal('toggle');
+                        $('#modal').innerHTML = "";
+                    }
+                });
+            }
+        });
+    });
+</script>

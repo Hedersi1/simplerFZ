@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Simple.MVC.Security.Data.SEGrupoUsuario>
+@{  ViewBag.Title = "Pessoas do Grupo: "+ ViewBag.grupo.Nome; }
+<script src="~/Content/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@RenderPage("~/Views/Shared/_filterIndex.cshtml")
+<div class="panel panel-primary table-responsive">
+    <table class="table table-hover">
+        <thead class="tb-primary">
+            <tr>
+                <th>Nome</th>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th class="text-center col-md-2">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="body-pessoa">
+            @foreach (var item in Model)
+            {
+                <tr id="pessoa_grupo_@(item.IdUsuario+"_"+item.IdGrupo)">
+                    <td>@Html.DisplayFor(modelItem => item.SEUsuario.Login) </td>
+                    <td>@Html.DisplayFor(modelItem => item.SEUsuario.Login) </td>
+                    <td>@Html.DisplayFor(modelItem => item.SEUsuario.CGPessoa.Email) </td>
+                    <td class="text-center">
+                        <a href="javascript:;" onclick="excluirGrupoPessoa(@item.IdUsuario, @item.IdGrupo, 'pessoa_grupo_@(item.IdUsuario+"_"+item.IdGrupo)')"><i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide">Excluir</span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            @Html.TextBox("txtPessoa", null, new { @class = "form-control", @autofocus = "", @placeholder = "Digite o Nome do Usuário.  [nome, login, cpf ou e-mail]" })
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-primary" id="addPessoaGrupo" tabindex="-1">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("IdUsuario")
+@Html.Hidden("NomePessoa")
+@Html.Hidden("Email")
+@Html.Hidden("Login")
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<style>
+    .ui-autocomplete-loading {
+        background: white url('../../Content/img/imgloader.gif') right center no-repeat;
+    }
+
+    .ui-autocomplete {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+<script type="text/javascript">
+    $("#txtPessoa").autocomplete({
+        minLength: 3,
+        source: '@Url.Action("GetUsuario", "Ajax")',
+        focus: function (event, ui) { $("#txtPessoa").val(ui.item.Nome); return false; },
+        select: function (event, ui) {
+            if (ui.item.Nome != null) {
+                $("#IdUsuario").val(ui.item.Id);
+                $("#NomePessoa").val(ui.item.Nome);
+                $("#Email").val(ui.item.Email);
+                $("#Login").val(ui.item.Login);
+            }
+            return false;
+        }
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+        if (item.Nome == "Não encontrado!") {
+            item.Nome = null;
+            return $("<li>")
+              .append("<a><span style='font-size: 13px; font-weight: bold;'>  " + item.Login + "  </span></a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+        else {
+            return $("<li>")
+              .append("<a><span style='font-size: 16px; font-weight: bold;'>" + item.Nome +
+              "</span><br /><span style='font-size: 12px;'> [Login: " + item.Login + "] " +
+              "[E-mail: " + item.Email + "] " + "[CPF: " + item.CPF + "]" +
+              " </a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+    };
+    function excluirGrupoPessoa(IdUsuario, idGrupo, linha) {
+        $.ajax({
+            url: '@Url.Action("ExcluirGrupoPessoa", "Grupo")' + '/?IdUsuario=' + IdUsuario + '&IdGrupo=' + idGrupo,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (result) {
+                $("#"+linha).remove();
+                $.pnotify({
+                    text: "O Usuário foi removido do grupo!",
+                    type: "success",
+                    closer: true
+                });
+            },
+            error: function (result) {
+                $.pnotify({
+                    text: "Ocorreu um erro, tente novamente!",
+                    type: "error",
+                    closer: true
+                });
+            }
+        });
+    }
+
+    $("#addPessoaGrupo").click(function () {
+        if($("#IdUsuario").val() == "")
+        {
+            $.pnotify({
+                text: "Você precisa adicionar uma pessoa para poder adicionar!",
+                type: "error",
+                closer: true
+            });
+        }
+        else {
+            adGrupo(@ViewBag.grupo.Id, $("#NomePessoa").val())
+        }
+    });
+
+    function adGrupo(id, texto) {
+        if ($("#IdUsuario").val() != "") {
+            if ($("#pessoa_grupo_"+$("#IdUsuario").val()+"_"+id).attr('id') == undefined) {
+                $.ajax({
+                    url: '@Url.Action("AdicionarGrupoPessoa", "Grupo")' + '/?IdUsuario=' + $("#IdUsuario").val() + '&IdGrupo=' + id,
+                    type: 'POST',
+                    accept: 'application/json',
+                    complete: function (result) {
+                        ShowMenssage($(result.responseJSON).prop("type"), $(result.responseJSON).prop("text"));
+                    },
+                    success: function (result) {
+                        $("<tr id=\"pessoa_grupo_"+$("#IdUsuario").val()+"_"+id+"\">"+
+                        "<td> "+texto+"</td>"+
+                        "<td> "+$("#Login").val()+"</td>"+
+                        "<td> "+$("#Email").val()+"</td>"+
+                        "<td class=\"text-center\">"+
+                        "        <a href=\"javascript:;\" onclick=\"excluirGrupoPessoa("+$("#IdUsuario").val()+", "+id+", 'pessoa_grupo_"+$("#IdUsuario").val()+"_"+id+"')\"><i title=\"Excluir\" class=\"fa fa-times fa-lg icon-red\"></i><span class=\"hide\">Excluir</span></a>"+
+                        "    </td>"+
+                        "</tr>").appendTo($("#body-pessoa"));
+                        
+                        $("#IdUsuario").val("");
+                        $("#NomePessoa").val("");
+                        $("#txtPessoa").val("");
+                        $("#txtPessoa").focus();
+                    }
+                })
+            }
+            else
+            {
+                $.pnotify({
+                    text: "Pessoa já adicionada...",
+                    type: "error",
+                    closer: false
+                });
+            }
+        }
+        else {
+            $.pnotify({
+                text: "Escolha um usuário primeiro...",
+                type: "error",
+                closer: true
+            });
+        }
+    }
+</script>
+@RenderPage("~/Views/Shared/_paginate.cshtml")

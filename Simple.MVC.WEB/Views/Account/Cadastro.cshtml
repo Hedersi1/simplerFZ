@@ -1,0 +1,136 @@
+﻿@model  Simple.MVC.Security.CadastroModel
+@{
+    ViewBag.Title = "Cadastro";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link href="~/Content/Site-Theme.css" rel="stylesheet" />
+    <link href="~/Content/style-login.css" rel="stylesheet" />
+
+    <script src="~/Content/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Content/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="~/Content/Scripts/bootstrap.js"></script>
+    <script src="~/Content/Scripts/configApp.js"></script>
+
+    <style type="text/css">
+        .form-control
+        {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row msg">
+            @RenderPage("~/Views/Shared/_barraMensagens.cshtml")
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center" style="margin-bottom: 10px;">
+            </div>
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <div class="account-wall" style="padding: 20px;">
+
+                    @using (Html.BeginForm("Cadastro", "Account", FormMethod.Post, new { @class = "form" }))
+                    {
+                        <span><i class="glyphicon glyphicon-user"></i>Cadastro</span>
+                    
+                        @Html.TextBoxFor(model => model.nome, new { @required = "true", @class = "form-control", @autofocus = "true", @placeholder = "Nome", @maxlength = 100 })
+                                
+                        @Html.TextBoxFor(model => model.email, new { @class = "form-control", @required = "", @placeholder = "email", @maxlength = 100 })
+                        @Html.TextBoxFor(model => model.UserLogin.UserName, new { @class = "form-control", @required = "", @placeholder = "login", @maxlength = 100 })
+                        @Html.PasswordFor(model => model.UserLogin.Password, new { @class = "form-control", @required = "", @placeholder = "Senha", @maxlength = 100 })
+                        @Html.PasswordFor(model => model.UserLogin.rePassword, new { @class = "form-control", @required = "", @placeholder = "Repetir Senha", @maxlength = 100 })
+
+                        <div class="form-group">
+                            <label for="">Cidade / UF</label>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-6">
+                                    @Html.DropDownListFor(m => m.endereco.CGCidade.IdUF, ViewData["Id_UF"] as SelectList, "UF", new { @class = "form-control ddlEstado"})
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+
+                                    @Html.HiddenFor(m => m.endereco.IdCidade)
+                                    @Html.DropDownListFor(m => m.endereco.IdCidade, ViewData["IdCidade"] as SelectList, "Cidade", new { @class = "form-control ddlCidade" })
+                                </div>
+
+                            </div>
+                        </div> 
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        if ($('.ddlEstado').find(":selected").val() != "") {
+            $.getJSON('@Url.Action("GetCidadesByUF", "Ajax")' + '/' + $('.ddlEstado').find(":selected").val(), function (result) {
+                var ddl = $('.ddlCidade');
+                ddl.empty();
+                $(result).each(function () {
+                    $(document.createElement('option'))
+                        .attr('value', this.Id)
+                        .text(this.Value)
+                        .appendTo(ddl);
+                });
+                ddl.val($('input#endereco_IdCidade').val());
+            });
+        }
+    });
+
+    $('.ddlCidade').change(function () {
+        $('input#endereco_IdCidade').val($('select#endereco_IdCidade').val());
+    });
+
+    $('.ddlEstado').change(function () {
+        $('#CGCidade_id_UF').val($('.ddlEstado').val());
+        $('.ddlCidade').empty();
+        $(document.createElement('option')).attr('value', "0").text("Aguarde...").appendTo($('.ddlCidade'));
+
+        $.getJSON('@Url.Action("GetCidadesByUF", "Ajax")' + '/' + $('.ddlEstado').find(":selected").val(), function (result) {
+                var ddl = $('.ddlCidade');
+                setTimeout(function () {
+                    $('.ddlCidade').empty();
+                    $(document.createElement('option')).attr('value', "0").text("Selecione...").appendTo($('.ddlCidade'));
+                    $(result).each(function () {
+                        $(document.createElement('option'))
+                            .attr('value', this.Id)
+                            .text(this.Value)
+                            .appendTo(ddl);
+                    });
+                    $('.ddlCidade').effect("highlight", 900);
+                }, 1000);
+                
+            });
+        });
+</script>

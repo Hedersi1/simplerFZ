@@ -1,0 +1,48 @@
+﻿@using Simple.MVC.Security.Data
+@model IEnumerable<CGTelefone>
+@{
+    Layout = null;
+}
+@if (Model.Count() > 0)
+{
+    <div class="panel panel-primary table-responsive">
+        <table class="table table-hover">
+            <thead class="tb-primary">
+                <tr>
+                    <th class="text-center" width="5%"></th>
+                    <th class="text-center">DDD</th>
+                    <th class="text-center">Número</th>
+                    <th class="text-center">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @if (item.Principal)
+                        {
+                            <td class="text-center"><i title="Principal" class="fa fa-star"></i></td>
+                        }
+                        else
+                        {
+                            <td class="text-center"><i style="color:gray" title="Marcar como Principal" class="fa fa-star favorito"></i></td>
+                        }
+                        <td class="text-center">@item.DDD</td>
+                        <td class="text-center">@item.Numero</td>
+                        <td class="text-center">
+                            <a href="javascript:;" onclick="excluirTelefone(@item.Id)"><i title="Excluir Item" class="fa fa-times fa-lg icon-red"></i><span class="hide"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <tr>
+        <td>
+            Nenhum telefone encontrado.
+        </td>
+    </tr>
+}

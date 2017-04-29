@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Gerador";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Tabelas</label>
+                @Html.DropDownList("Tabela", ViewBag.Tabelas as SelectList, "Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Areas</label>
+                @Html.DropDownList("Area", ViewBag.Areas as SelectList, "Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+            </div>
+        </div>    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group well">
+                <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm ">Criar</button>
+                <a href="@Url.Action("Indice")" class="btn btn-default btn-sm ">Voltar</a>
+            </div>
+        </div>
+    </div>
+}

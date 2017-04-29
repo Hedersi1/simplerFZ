@@ -1,0 +1,47 @@
+﻿@model IEnumerable <Simple.MVC.Security.Data.SEGrupo>
+@{
+    ViewBag.Title = "Lista de Grupos";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+    <div class="pull-right novo-page-header">
+        <a href="@Url.Action("Criar","Grupo")" title="Novo Grupo"><i class="fa fa-plus-circle fa-3x" title="" data-original-title="Novo Grupo"></i><span class="hide">Novo</span></a>
+    </div>
+</div>
+@RenderPage("~/Views/Shared/_filterIndex.cshtml")
+<div class="panel panel-primary table-responsive">
+    <table class="table table-hover">
+        <thead class="tb-primary">
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Origem</th>
+                <th class="text-center col-md-2">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Origem)
+                    </td>
+
+                    <td class="text-center">
+                        <a class="btnModal" href="javascript:;" data-href="@Url.Action("Detalhes", "Grupo", new { id = item.Id, Area = "Seguranca" })"><i title="Visualizar" class="fa fa-search fa-lg"></i><span class="hide">Detalhes</span></a>
+                        <a href="@Url.Action("Editar", "Grupo", new { id = item.Id, Area = "Seguranca" })"><i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide">Editar</span></a>
+                        <a href="@Url.Action("GrupoPessoa", "Grupo", new { grupos = item.Id, Area = "Seguranca" })"><i title="Visualizar usuários do grupo" class="fa fa-users fa-md"></i><span class="hide">Listar Usuários</span></a>
+                        <a class="btnModal" href="javascript:;" data-href="@Url.Action("Excluir", "Grupo", new { id = item.Id, Area = "Seguranca" })"><i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide">Excluir</span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@RenderPage("~/Views/Shared/_paginate.cshtml")

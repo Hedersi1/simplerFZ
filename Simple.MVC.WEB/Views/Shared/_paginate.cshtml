@@ -1,0 +1,61 @@
+﻿@if (ViewBag.totalItems > ViewBag.pageSize)
+{
+    <div class="row">
+        <div class="col-lg-8">
+            <ul class="pagination">
+                <li><a class="lnk" href="javascript:;" id="firsLink" data-href="@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = 0 })">Primeira</a></li>
+                @if (ViewBag.HasPrevious)
+                {
+                    <li><a class="lnk" href="javascript:;" data-href="@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = (ViewBag.CurrentPage - 1) })">Anterior</a></li>
+                }
+                @{
+                    var de = (ViewBag.CurrentPage - 5) < 1 ? 1 : (ViewBag.CurrentPage - 5);
+                    var ate = ((ViewBag.CurrentPage + 5) > ViewBag.TotalPages ? ViewBag.TotalPages : (ViewBag.CurrentPage + 5));
+                }
+                @for (int p = de; p <= ate; p++)
+                {
+                    <li><a class="lnk @(p == ViewBag.CurrentPage ? "selectedMenu" : "")" href="javascript:;" data-href="@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = p })">@(p)</a></li>
+                }
+                @if (ViewBag.HasNext)
+                {
+                    <li><a class="lnk" href="javascript:;" data-href="@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = (ViewBag.CurrentPage + 1) })">Próxima</a></li>
+                }
+                <li><a class="lnk" href="javascript:;" data-href="@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = ViewBag.TotalPages })">Último (@ViewBag.TotalPages)</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <form id="frmPageSize" action="javascript:;">
+            <div class="input-prepend pagination pull-right text-right">
+                <span class="add-on small">De [@ViewBag.totalItems] mostrar apenas:</span>
+                <input id="pageSize" type="number" max="999" min="1" value="@ViewBag.pageSize">
+                <input id="page" type="hidden"  value="@ViewBag.CurrentPage">
+            </div>
+            </form>
+        </div>
+    </div>
+}
+
+<script>   
+
+    function vai(link) {
+        var parametros = "";
+        if ($("#p1").val() > 0) {
+            parametros += "&p1=" + $("#p1").val();
+        }        
+        var newHref = $(link).data("href") + "&pageSize=" + $("#pageSize").val() + parametros;
+        window.location.href = newHref;
+    }
+
+    $(".lnk").click(function () {
+        vai(this);
+    });
+
+    $("#frmPageSize").submit(function () {
+        var parametros = "";
+        if ($("#p1").val() > 0) {
+            parametros += "&p1=" + $("#p1").val();
+        }
+        var newHref = '@Url.Action(ViewBag.Action, new { filtro = ViewBag.filtro, page = 0 })' + "&pageSize=" + $("#pageSize").val() + parametros;
+        window.location.href = newHref;
+    });
+</script>

@@ -1,0 +1,120 @@
+﻿@using Simple.MVC.Security
+@{
+    List<string[]> Mensagens = new List<string[]>();
+    Int32 countVE = 0;
+    string classe = null;
+    try
+    {
+        IEnumerable<System.Data.Entity.Validation.DbEntityValidationResult> Erros = (IEnumerable<System.Data.Entity.Validation.DbEntityValidationResult>)TempData["DbEntityValidationResult"];
+
+        if (Erros != null)
+        {
+            foreach (var erro in Erros)
+            {
+                foreach (var erroMsg in erro.ValidationErrors)
+                {
+                    Mensagens.Add(new string[] { erroMsg.ErrorMessage, "error" });
+                    Util.log(erroMsg.ErrorMessage, "System");
+                }
+            }
+            TempData["DbEntityValidationResult"] = null;
+        }
+
+        foreach (var modelErrors in ViewData.ModelState.Values.Select(e => e.Errors).Where(a => a.Count > 0))
+        {
+            foreach (var Msgerro in modelErrors)
+            {
+                if (Msgerro.Exception != null)
+                {
+                    Mensagens.Add(new string[] { Msgerro.Exception.Message, "error" });
+                    Util.log(Msgerro.Exception.Message, "System");
+                    if (Msgerro.Exception.InnerException != null)
+                    {
+                        Mensagens.Add(new string[] { Msgerro.Exception.InnerException.Message, "error" });
+                        Util.log(Msgerro.Exception.InnerException.Message, "System");
+                    }
+                }
+                else
+                {
+                    Mensagens.Add(new string[] { Msgerro.ErrorMessage, "error" });
+                    Util.log(Msgerro.ErrorMessage, "System");
+                }
+            }
+        }
+
+        if (TempData["Exception"] != null && Mensagens.Count == 0)
+        {
+            classe = "alert-danger";
+            Exception e = (Exception)TempData["Exception"];
+            try
+            {
+                if (e.InnerException != null)
+                {
+                    Mensagens.Add(new string[] { e.InnerException.Message, "error" });
+                    Util.log(e.InnerException.Message + "Stack = " + e.StackTrace, "System");
+                }
+                if (e.InnerException.InnerException != null)
+                {
+                    Mensagens.Add(new string[] { e.InnerException.InnerException.Message, "error" });
+                    Util.log(e.InnerException.InnerException.Message + "Stack = " + e.StackTrace, "System");
+                }
+            }
+            catch
+            {
+                Mensagens.Add(new string[] { e.Message, "error" });
+                Util.log(e.Message + "Stack = " + e.StackTrace, "System");
+            }
+            TempData["Exception"] = null;
+        }
+
+
+        if (TempData["s"] != null) { Mensagens.Add(new string[] { TempData["s"].ToString(), "success" }); TempData["s"] = null; }
+        if (TempData["w"] != null) { Mensagens.Add(new string[] { TempData["w"].ToString(), "" }); TempData["w"] = null; }
+        if (TempData["e"] != null) { Mensagens.Add(new string[] { TempData["e"].ToString(), "error" }); Util.log(TempData["e"].ToString(), "System"); TempData["e"] = null; }
+        if (TempData["i"] != null) { Mensagens.Add(new string[] { TempData["i"].ToString(), "info" }); TempData["i"] = null; }
+        if (TempData["temp"] != null) { Mensagens.Add(new string[] { TempData["temp"].ToString(), "" }); Util.log(TempData["temp"].ToString(), "System"); TempData["temp"] = null; }
+
+    }
+    catch (Exception e)
+    {
+        Util.log(e.Message, "System");
+        Mensagens.Add(new string[] { e.Message, "error" });
+    }
+
+    <ul id="msgs" class="list-unstyled hide">
+    @if (Mensagens.Count > 0 || countVE > 112)
+    {
+        foreach (var msg in Mensagens)
+        {
+            <li data-classe="@msg[1]">@(new HtmlString(msg[0]))</li>
+        }
+    }
+    </ul>
+
+    <script type="text/javascript">
+        function ShowMenssage(type, message)
+        {
+            $("<li data-classe=\"" + type + "\">" + message + "</li>").appendTo($("#msgs"));
+            ShowMenssage();
+        }
+        function ShowMenssage()
+        {
+            $("#msgs li").each(function () {
+                $.pnotify({
+                    text: $(this).text().trim(),
+                    type: $(this).data("classe"),
+                    icon: "ui-icon ui-icon-comment",
+                    closer: true
+                });
+            });
+        }
+        jQuery(document).ready(function ($) {
+            $.pnotify.defaults.styling = "bootstrap3";
+            ShowMenssage();
+        });
+    </script>
+}
+
+
+
+

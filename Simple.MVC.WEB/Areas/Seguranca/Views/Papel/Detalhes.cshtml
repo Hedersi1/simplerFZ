@@ -1,0 +1,29 @@
+﻿@model Simple.MVC.Security.Data.SEPapel
+@{
+    ViewBag.Title = "Detalhes Papel";
+    Layout = null;
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Nome:</dt>
+                <dd>&nbsp;@Model.Nome</dd>
+                <dt>Descricao:</dt>
+                <dd>&nbsp;@Model.Descricao</dd>
+            </dl>
+            <h5>Grupo</h5>
+            <dl class="dl-horizontal">
+                @foreach (var item in Model.SEPapelGrupo)
+                {
+                    <dt>@item.SEGrupo.Origem :</dt>
+                    <dd>&nbsp; @item.SEGrupo.Nome</dd>
+                }
+            </dl>
+        </div>
+    </div>
+</div>

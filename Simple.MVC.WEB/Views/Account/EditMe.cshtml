@@ -1,0 +1,171 @@
+﻿@model  Simple.MVC.Security.Data.SEUsuario
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<div class="page-header">
+    <h1>Perfil</h1>
+
+</div>
+    @*<div class="col-lg-2 text-center hide">
+            <img class="img-responsive thumbnail" src="~/Content/images-theme/user-image.jpg" />
+            <a title="Alterar minha foto" href="#"><i class="fa fa-camera"></i> Alterar minha foto</a>
+        </div>*@
+
+    <div class="row">
+        <div class="col-lg-5">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.DataCriacao)
+            @Html.HiddenFor(model => model.DataExpiracaoToken)
+            @Html.HiddenFor(model => model.CGPessoa.Email)
+            @Html.HiddenFor(model => model.Guid)
+            @Html.HiddenFor(model => model.EstaOnline)
+            @Html.HiddenFor(model => model.UltimaAtividade)
+            @Html.HiddenFor(model => model.UltimoLogin)
+            @Html.HiddenFor(model => model.UltimaTrocaSenha)
+            @Html.HiddenFor(model => model.Login)
+            @Html.HiddenFor(model => model.LoginRM)
+            @Html.HiddenFor(model => model.MudaSenhaProximoLogon)
+            @Html.HiddenFor(model => model.Senha)
+            @Html.HiddenFor(model => model.Salt)
+            @Html.HiddenFor(model => model.Sid)
+            @Html.HiddenFor(model => model.Token)
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 style="margin-top:0px">Meus Dados</h3>
+                    <div class="form-group">
+                        <label>Nome</label>
+                        @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @required = "", @readonly = "readonly", @autofocus = "true", @maxlength = 100 })
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>E-mail Principal</label>
+                        @Html.TextBoxFor(model => model.CGPessoa.Email, new { @class = "form-control", @required = "", @readonly = "readonly", @maxlength = 100 })
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>E-mail Alternativo</label>
+                        @Html.TextBoxFor(model => model.CGPessoa.EmailAlt, new { @type = "email", @class = "form-control", @required = "", @maxlength = 100 })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>CPF</label>
+                        @Html.TextBoxFor(model => model.CGPessoa.CGPessoaFisica.CPF, new { @class = "form-control", @required = "", @readonly = "readonly", @maxlength = 11 })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Nascimento</label>
+                        <div class="input-group datepicker">
+                            @Html.TextBoxFor(model => model.CGPessoa.CGPessoaFisica.DataNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control", @required = "", @placeholder = "Ex: 01/01/2020", @maxlength = "256" })
+                            <span class="input-group-addon">
+                                <a class="fa fa-calendar"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        @Html.DropDownListFor(model => model.CGPessoa.CGPessoaFisica.Sexo, ViewBag.Sexo as SelectList, new { @class = "form-control", @required = "", @disabled="" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+        <div class="col-lg-4">
+        @using (Html.BeginForm("addTel", "Account", FormMethod.Post, new { id = "telefoneForm" }))
+        {
+            @Html.HiddenFor(model => model.IdPessoa)
+            <h3 style="margin-top: 0px">Telefones</h3>
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="form-group">
+                        <label>DDD</label>
+                        @Html.TextBox("DDD", "", new { @class = "form-control ddd", @maxlength = 3 })
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <div class="input-group">
+                            @Html.TextBox("Telefone", "", new { @class = "form-control celular", @maxlength = 9 })
+                            <div class="input-group-btn">
+                                @if (Model.CGPessoa.CGTelefone != null)
+                                {
+                                    <button type="submit" class="btn btn-primary" >Adicionar</button>
+                                }
+                            </div>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+            <div class="panel panel-primary table-responsive" id="TelefoneLista">
+                @{ Html.RenderAction("ListaTelefone", new { idpessoa = Model.IdPessoa }); }
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <h3 style="margin-top: 0px">Atividades</h3>
+            @if (Model.UltimoLogin.HasValue)
+                {
+                <label>Último login</label>
+                <p>@Model.UltimoLogin.ToString()</p>
+            }
+            @if (Model.UltimaTrocaSenha.HasValue)
+                {
+                <label>Última Alteração de Senha</label>
+                <p>@Model.UltimaTrocaSenha.ToString()</p>
+            }
+            <a title="Alterar minha Senha" href="@Url.Action("MudarSenha", "Account")"><i class="fa fa-key"></i>Alterar senha</a>
+        </div>
+    </div>
+    <hr />
+<script type="text/javascript">
+    //$("#Telefone").keyup(function () {
+    //    if ($(this).val().length == 8) {
+    //        $('#Telefone').removeClass("telefoneAntigo");
+    //        $('#Telefone').addClass("telefoneNovo");
+    //        event.preventDefault();
+    //    }
+    //});
+    $('#wrapper').addClass("toggled");
+    $('#menu-toggle').hide();
+    $(function () {
+        $('#telefoneForm').submit(function (e) {
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                error: function (jqXHR, textStatus, errorMessage) {
+                    $.pnotify({ text: errorMessage, type: "error", closer: true });
+                },
+                success: function (data) {
+                    $.pnotify({ text: data.text, type: data.type, closer: true });
+                    if (data.type == "success") {
+                        $("#TelefoneLista").load("@Url.Action("ListaTelefone", new { idpessoa = Model.IdPessoa })");
+                    }
+                }
+            });
+            e.preventDefault();
+        });
+    });
+    function excluirTelefone(id) {
+        $.getJSON('@Url.Action("ExcluirTelefone")?&id=' + id, function (json) {
+            $.pnotify({ text: json.text, type: json.type, closer: true });
+            $("#TelefoneLista").load("@Url.Action("ListaTelefone", new { idpessoa = Model.IdPessoa })");
+        });
+    }
+</script>

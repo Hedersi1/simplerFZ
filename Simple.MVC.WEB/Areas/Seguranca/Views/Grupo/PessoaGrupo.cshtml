@@ -1,0 +1,263 @@
+﻿@using Simple.MVC.Security.Data;
+@{
+    ViewBag.Title = "Gestão de Pessoas por Grupos";
+    String nome = ViewBag.Pessoa != null ? ((SEUsuario)ViewBag.SEUsuario).Login : "";
+    String id = ViewBag.Pessoa != null ? ((SEUsuario)ViewBag.SEUsuario).Id.ToString() : "";
+}
+<script src="~/Content/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <blockquote>
+                    <p><small>Digite o nome do usuário e arraste os grupos para adicioná-los...</small></p>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    @Html.TextBox("txtPessoa", nome, new { @class = "form-control", @autofocus = "", @placeholder = "Digite o Nome do Usuário.  [nome, login, cpf ou e-mail]" })
+                    @Html.Hidden("IdUsuario", id)
+                    @Html.Hidden("NomePessoa", nome)
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    @Html.TextBox("txtGrupos", null, new { @class = "form-control", @placeholder = "Filtrar Grupos" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label>Grupos Disponíveis</label>
+                    <div id="ulGrupos">
+                        <ul class="nav nav-pills nav-stacked">
+                            @foreach (var item in (ViewBag.grupos as IEnumerable<SEGrupo>))
+                            {
+                                <li class="liGroup" id="@item.Id"><a href="javascript:;" onclick="adGrupo('@item.Id', '@item.Nome')">@item.Nome <span title='Incluir' class='arrow fa fa-fw fa-plus-circle fa-lg'></span></a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label id="lblNomePessoa">&nbsp;</label>
+                    <ul id="ulPessoa" class="nav nav-pills nav-stacked"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<style>
+    .ui-autocomplete-loading {
+        background: white url('../../Content/img/imgloader.gif') right center no-repeat;
+    }
+
+    .ui-autocomplete {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #ulGrupos li:hover {
+        cursor: pointer;
+    }
+
+    #ulGrupos {
+        border: solid 1px #ccc;
+        min-height: 300px;
+        max-height: 300px;
+        overflow: auto;
+    }
+
+    #ulPessoa {
+        border: solid 1px #ccc;
+        min-height: 300px;
+        max-height: 300px;
+        overflow: auto;
+    }
+</style>
+<script>
+    drag();
+
+    /*****************************************************************************************************************************************/
+    $("#ulGrupos li").mousedown(function () {
+        $(this).css("cursor", "move");
+    });
+    $("#ulGrupos li").mouseup(function () {
+        $(this).css("cursor", "pointer");
+    });
+    $("#ulGrupos li").mouseout(function () {
+        $(this).css("cursor", "pointer");
+    });
+    /*****************************************************************************************************************************************/
+    $("#txtGrupos").keyup(function () {
+        var value = $(this).val();
+        $("#ulGrupos li").each(function () {
+            if ($(this).text().toLowerCase().search(value.toLowerCase()) > -1) {
+                $(this).fadeIn(100);
+            }
+            else {
+                $(this).fadeOut(100);
+            }
+        });
+    });
+
+    $("#txtPessoa").autocomplete({
+        minLength: 3,
+        source: '@Url.Action("GetUsuario", "Ajax")',
+        focus: function (event, ui) { $("#txtPessoa").val(ui.item.Nome); return false;  },
+        select: function (event, ui) {
+            if (ui.item.Nome != null) {
+                $("#IdUsuario").val(ui.item.Id);
+                $("#NomePessoa").val(ui.item.Nome);
+                $("#ulPessoa li").fadeOut();
+                $("#ulPessoa li").remove();
+                carregaSEGrupos(ui.item.Id);
+                $("#lblNomePessoa").html("Grupos de " + ui.item.Nome);
+            }
+            return false;
+        }
+    })
+
+    .data("ui-autocomplete")._renderItem = function (ul, item) {
+        if (item.Nome == "Não encontrado!") {
+            item.Nome = null;
+            return $("<li>")
+              .append("<a><span style='font-size: 13px; font-weight: bold;'>  " + item.Login + "  </span></a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+        else {
+            return $("<li>")
+              .append("<a><span style='font-size: 16px; font-weight: bold;'>" + item.Nome +
+              "</span><br /><span style='font-size: 12px;'> [Login: " + item.Login + "] " +
+              "[E-mail: " + item.Email + "] " + "[CPF: " + item.CPF + "]" +
+              " </a></li>")
+              .appendTo(ul).hide().fadeIn(200);
+        }
+    };
+    /*****************************************************************************************************************************************/
+    function drag() {
+        $(".liGroup").draggable({
+            appendTo: "body",
+            helper: "clone",
+        });
+    }
+    /*****************************************************************************************************************************************/
+    function carregaSEGrupos(IdUsuario) {
+        $("#ulPessoa").empty();
+        $.ajax({
+            url: '@Url.Action("GetGroupsForPeople", "Ajax")' + '/' + IdUsuario,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (result) {
+                $(result).each(function () {
+                    $("<li id=" + $(this).prop("Id") + "></li>").text($(this).prop("Nome")).appendTo($("#ulPessoa"));
+                    ordena($("#ulPessoa"));
+                });
+            },
+            error: function (result) {
+                $.pnotify({
+                    text: $("#NomePessoa").val() + " não está associado(a) a um grupo!",
+                    type: "warning",
+                    closer: true
+                });
+            }
+        });
+    }
+    /*****************************************************************************************************************************************/
+    function ordena(items) {
+        var listOfmyObject = [];
+        $(items.find("li")).each(function () {
+            var myObject = new Object();
+            myObject.id = $(this).prop("id");
+            myObject.text = $(this).text();
+            listOfmyObject.push(myObject);
+        });
+
+        listOfmyObject.sort(function (a, b) {
+            a = a.text
+            b = b.text;
+            return a.localeCompare(b);
+        });
+        items.empty();
+        $(listOfmyObject).each(function () {
+            $("<li id=" + $(this).prop("id") + "><a href='javascript:;'>" + $(this).prop("text") +
+                "<span data-id=" + $(this).prop("id") + " title='Excluir' class='btnExcluir arrow fa fa-fw fa-times fa-lg icon-red'></span></a></li>")
+                .fadeIn(600).appendTo($("#ulPessoa"));
+        });
+        $(".btnExcluir").click(function () {
+            var IdGrupo = $(this).data("id");
+            $(this).parent().parent().fadeOut();
+            $.ajax({
+                url: '@Url.Action("ExcluirGrupoPessoa", "Grupo")' + '/?IdUsuario=' + $("#IdUsuario").val() + '&IdGrupo=' + $(this).data("id"),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (result) {
+                    $("#ulPessoa").find("li#" + IdGrupo).remove();
+                    $.pnotify({
+                        text: "O Usuário foi removido do grupo!",
+                        type: "success",
+                        closer: true
+                    });
+                },
+                error: function (result) {
+                    $(this).parent().parent().fadeIn();
+                    $.pnotify({
+                        text: "Ocorreu um erro, tente novamente!",
+                        type: "error",
+                        closer: true
+                    });
+                }
+            });
+        });
+    }
+    /*****************************************************************************************************************************************/
+    $("#ulPessoa").droppable({
+        activeClass: "",
+        hoverClass: "",
+        accept: ":not(.ui-sortable-helper)",
+        drop: function (event, ui) {
+            adGrupo($(ui.draggable).prop("id"), ui.draggable.text())
+        }
+    });
+
+     function adGrupo(id, texto) {
+        if ($("#IdUsuario").val() != "") {
+
+            if (!$("#ulPessoa").find("li#" + id).prop("id") > 0) {
+                $("<li id=" + id + "></li>").text(texto).appendTo($("#ulPessoa"));
+            }
+            ordena($("#ulPessoa"));
+            $.ajax({
+                url: '@Url.Action("AdicionarGrupoPessoa", "Grupo")' + '/?IdUsuario=' + $("#IdUsuario").val() + '&IdGrupo=' + id,
+                type: 'POST',
+                accept: 'application/json',
+                complete: function (result) {
+                    $.pnotify({
+                        text: $(result.responseJSON).prop("text"),
+                        type: $(result.responseJSON).prop("type"),
+                        closer: true
+                    });
+                }
+            })
+        }
+        else {
+            $.pnotify({
+                text: "Escolha um usuário primeiro...",
+                type: "error",
+                closer: true
+            });
+        }
+    }
+    /*****************************************************************************************************************************************/
+</script>

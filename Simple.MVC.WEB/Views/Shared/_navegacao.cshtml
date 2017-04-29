@@ -1,0 +1,13 @@
+﻿@{ 
+    var area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] == null ? "" : HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"].ToString();
+    var controller = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"] == null ? "" : @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    var action = @HttpContext.Current.Request.RequestContext.RouteData.Values["action"] == null ? "" : @HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+}
+@if (area != "")
+{
+    <ol class="breadcrumb" style="margin-bottom:0px;">
+        <li href="~/@area/"><a class="fa fa-home"><span> @area</span></a></li>
+        <li><a class="fa fa-cog"><span href="#"> @controller</span></a></li>
+        <li class="active"><i class="fa fa-wrench"></i> @action</li>
+    </ol>
+}

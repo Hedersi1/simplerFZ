@@ -1,0 +1,23 @@
+﻿<div class="form-group">
+    <form id="frmFiltro" method="get" action="@Url.Action(ViewBag.action, new { page = ViewBag.CurrentPage })">
+        @{
+            foreach (String key in Request.QueryString.AllKeys)
+            {
+                if (key != "filtro")
+                {
+                    @Html.Hidden(key, Request.QueryString[key]);
+                }
+                else
+                {
+                    ViewBag.filtro = Request.QueryString[key];
+                }
+            }
+        }
+        <div class="input-group">
+            <input type="text" class="form-control" autocomplete="off" autofocus id="filtro" name="filtro" placeholder="@ViewBag.placeholder" value="@ViewBag.filtro">
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary" tabindex="-1">Filtrar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+﻿@model Danzor.Print.DanzorPrintViewer
+
+@{
+   Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+   <meta name="viewport" content="width=device-width" />
+   <title>DANFe</title>
+   <link href="~/Content/css/danfe/danfe.min.css" rel="stylesheet" />
+</head>
+<body>
+   <div class="danfe">
+      @foreach (var page in Model.Pages)
+      {
+         <div class="page">
+            @if (@page.IsFirstPage)
+            {
+               @Html.Partial("~/Views/Danfe/_canhoto.cshtml", @page)
+            }
+
+            @Html.Partial("~/Views/Danfe/_dados_nfe.cshtml", @page)
+            @Html.Partial("~/Views/Danfe/_destinatario.cshtml", @page)
+
+            @if (@page.IsFirstPage)
+            {
+               @Html.Partial("~/Views/Danfe/_transportador.cshtml", @page)
+               @Html.Partial("~/Views/Danfe/_imposto.cshtml", @page)
+               @Html.Partial("~/Views/Danfe/_faturas.cshtml", @page)
+            }
+
+            @Html.Partial("~/Views/Danfe/_dados_produtos.cshtml", @page)
+
+            @if (@page.IsLastPage)
+            {
+               @Html.Partial("~/Views/Danfe/_dados_adicionais.cshtml", @page)
+            }
+         </div>
+      }
+   </div>
+</body>
+
+</html>

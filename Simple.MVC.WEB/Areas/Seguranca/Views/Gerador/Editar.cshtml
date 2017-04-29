@@ -1,0 +1,173 @@
+﻿@model Simple.MVC.Business.Seguranca.Gerador
+@{
+    ViewBag.Title = "Gerador";
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm("Editar", "Gerador", FormMethod.Post, new { @id = "FormGerador" } ))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Tabela</label>
+                @Html.TextBoxFor(m => m.Tabela, new { @class = "form-control", @requerid= "requerid" })
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Apresentação</label>
+                @Html.TextBoxFor(m => m.Apresentacao, new { @class = "form-control", @requerid = "requerid" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Classe</label>
+                @Html.TextBoxFor(m => m.Classe, new { @class = "form-control", @requerid = "requerid" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Area</label>
+                @Html.DropDownListFor(m => m.Area, ViewBag.Areas as SelectList, "Selecione...", new { @class = "form-control", @autofocus = "" })
+            </div>
+        </div>
+    </div>
+    <h3>Mensagens de Sucesso</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Inserção</label>
+                @Html.TextBoxFor(m => m.MensagemSucessoInsercao, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Exclusão</label>
+                @Html.TextBoxFor(m => m.MensagemSucessoExclusao, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Alteração</label>
+               @Html.TextBoxFor(m => m.MensagemSucessoAlteracao, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <h3>Mensagens de Erro</h3>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="form-group has-error">
+                <label>Inserção</label>
+                @Html.TextBoxFor(m => m.MensagemErroInsercao, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-error">
+                <label>Exclusão</label>
+                @Html.TextBoxFor(m => m.MensagemErroExclusao, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-error">
+                <label>Alteração</label>
+                @Html.TextBoxFor(m => m.MensagemErroAlteracao, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <h3>Campos do Objeto</h3>
+    for (int i = 0; i < Model.GeradorItem.Count; i++)
+    {
+        @Html.HiddenFor(m => m.GeradorItem[i].FieldName)
+        @Html.HiddenFor(m => m.GeradorItem[i].Id)
+        @Html.HiddenFor(m => m.GeradorItem[i].IdGerador)
+        @Html.HiddenFor(m => m.GeradorItem[i].IsIdentity)
+        @Html.HiddenFor(m => m.GeradorItem[i].IsNullable)
+        @Html.HiddenFor(m => m.GeradorItem[i].IsPrimaryKey)
+        @Html.HiddenFor(m => m.GeradorItem[i].DataType)
+        @Html.HiddenFor(m => m.GeradorItem[i].TipoCSharp)
+        @Html.HiddenFor(m => m.GeradorItem[i].MaxLength)
+        @Html.HiddenFor(m => m.GeradorItem[i].FkField)
+        @Html.HiddenFor(m => m.GeradorItem[i].FkTable)
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Campo</label>
+                    @Html.TextBoxFor(m => m.GeradorItem[i].FieldName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Apres.</label>
+                    @Html.TextBoxFor(m => m.GeradorItem[i].NomeApresentacao, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Validacao</label>
+                    @Html.DropDownListFor(m => m.GeradorItem[i].IdGeradorItemTipo, new SelectList(ViewBag.Tipo, "Value", "Text", Model.GeradorItem[i].IdGeradorItemTipo),"Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Validacao</label>
+                    @Html.DropDownListFor(m => m.GeradorItem[i].IdValidacao1, new SelectList(ViewBag.Validacao, "Value", "Text", Model.GeradorItem[i].IdValidacao1), "Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Validacao</label>
+                    @Html.DropDownListFor(m => m.GeradorItem[i].IdValidacao2, new SelectList(ViewBag.Validacao, "Value", "Text", Model.GeradorItem[i].IdValidacao2), "Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Apresentar</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            @Html.CheckBoxFor(m => m.GeradorItem[i].ListarTabela)
+                        </span>
+                        <span type="text" class="form-control">Listagem</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group well">
+                <button type="button" id="btnSubmit" class="btn btn-primary btn-sm ">Salvar</button>
+                <button type="button" id="btnGerarClasse" class="btn btn btn-success btn-sm ">Gerar Classes</button>
+                <button type="button" id="btnGerarPaginas" class="btn btn btn-info btn-sm ">Gerar Páginas</button>
+                <button type="button" id="btnCadastrarInformacoes" class="btn btn btn btn-danger btn-sm ">Cadastrar Informações</button>
+                <a href="@Url.Action("Indice")" class="btn btn-default btn-sm ">Voltar</a>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <script type="text/javascript">
+            $("#btnGerarClasse").click(function () {
+                $('#FormGerador').attr('action', '@Url.Action("GerarClasses")' );
+                $('#FormGerador').submit();
+            });
+            $("#btnSubmit").click(function () {
+                $('#FormGerador').attr('action', '@Url.Action("Editar")');
+                $('#FormGerador').submit();
+            });
+            $("#btnGerarPaginas").click(function () {
+                $('#FormGerador').attr('action', '@Url.Action("GerarPaginas")');
+                $('#FormGerador').submit();
+            });
+            $("#btnCadastrarInformacoes").click(function () {
+                $('#FormGerador').attr('action', '@Url.Action("CadasatrarInformacoes")');
+                $('#FormGerador').submit();
+            });
+        </script>
+    }
+}

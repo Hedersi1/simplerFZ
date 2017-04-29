@@ -1,0 +1,44 @@
+﻿@{ 
+    Layout = null;
+}
+@if (ViewBag.Errors != null)
+{
+    Simple.MVC.Security.Data.CustomError errors = ViewBag.Errors as Simple.MVC.Security.Data.CustomError;
+
+    if (errors.Errors.Count > 0)
+    {
+        foreach (var item in errors.Errors.Where(s => s.Tipo == Simple.MVC.Security.Data.ObjectCustomError.CustomType.info).ToList())
+        {
+            <div class="row col-xs-12">
+                <div class="alert alert-info">
+                    <i style="color:#31708f" class="fa fa-info-circle fa-lg"></i> <strong>@(item.Id != 0 ? "Informação Código " + item.Id + "" : "Informação!") </strong> @Html.Raw(item.Descricao)
+                </div>
+            </div>
+        }
+        foreach (var item in errors.Errors.Where(s => s.Tipo == Simple.MVC.Security.Data.ObjectCustomError.CustomType.alerta).ToList())
+        {
+            <div class="row col-xs-12">
+                <div class="alert alert-warning">
+                    <i style="color:#8a6d3b" class="fa fa-exclamation-circle fa-lg"></i> <strong> @(item.Id != 0 ? "Alerta Código " + item.Id + "" : "Atenção!") </strong> @Html.Raw(item.Descricao)
+                </div>
+            </div>
+        }
+        foreach (var item in errors.Errors.Where(s => s.Tipo == Simple.MVC.Security.Data.ObjectCustomError.CustomType.erro).ToList())
+        {
+            <div class="row col-xs-12">
+                <div class="alert alert-danger">
+                    <i style="color:#a94442" class="fa fa-times-circle fa-lg"></i> <strong>@(item.Id != 0 ? "Erro Código " + item.Id + "" : "Erro!") </strong> @Html.Raw(item.Descricao)
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <div class="row col-xs-12">
+            <div class="alert alert-success">
+                <i style="color:#3c763d" class="fa fa-check fa-lg"></i><strong> Sucesso!</strong> O Estudo está pronto para ser apresentado.
+            </div>
+        </div>
+    }
+}

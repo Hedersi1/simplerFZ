@@ -1,0 +1,71 @@
+﻿@using Simple.MVC.Security.Data;
+@{
+    ViewBag.Title = "Mapa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<style>
+    #map {
+        height: 700px;
+        width: 100%;
+    }
+</style>
+}
+
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div id="map"></div>
+    </div>
+</div>
+
+
+<script>
+    var iconBase = '@Url.Content("Content/img/maps/")';
+    var icons = {
+        _default: {
+            icon: iconBase + 'pin.png'
+        },
+        _home: {
+            icon: iconBase + 'pin_home.png'
+        }
+    };
+    var pontos = [{ lat: -10.185, lng: -48.308 }, { lat: -10.165, lng: -48.349 }, { lat: -10.185, lng: -48.318 }, { lat: -10.195, lng: -48.348 }, { lat: -10.185, lng: -48.368 }];
+    var map;
+    function initMap() {
+        var uluru = { lat: -12.185, lng: -47.328 };
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: uluru
+        });
+
+        for (var i = 0; i < pontos.length; i++)
+        {
+            new google.maps.Marker({
+                position: pontos[i],
+                custom: { item: 'Item: ' + i },
+                icon: icons._default.icon,
+                map: map
+            }).addListener('click', function () {
+                var _mark = this;
+                console.log(_mark.custom.item);
+            });
+        }
+    }
+
+    navigator.geolocation.getCurrentPosition(function (location) {
+        var center = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
+        map.panTo(center);
+
+        new google.maps.Marker({
+            position: { lat: location.coords.latitude, lng: location.coords.longitude },
+            icon: icons._home.icon,
+            map: map
+        }).addListener('click', function () {
+            alert('Home');
+        });
+    });
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrkKsgxcD6IDBG3Z6rb_f-_xlqGrt1EIg&callback=initMap"></script>

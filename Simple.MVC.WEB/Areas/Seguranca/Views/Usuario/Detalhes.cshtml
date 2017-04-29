@@ -1,0 +1,34 @@
+﻿@model Simple.MVC.Security.Data.SEUsuario
+
+@{
+    ViewBag.Title = "Detalhes Pessoa";
+    Layout = null;
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>ID:</dt>
+                <dd>&nbsp;@Model.Id</dd>
+                <dt>Sid:</dt>
+                <dd>&nbsp;@Model.Sid</dd>
+                <dt>Guid:</dt>
+                <dd>&nbsp;@Model.Guid</dd>
+                <dt>Login:</dt>
+                <dd>&nbsp;@Model.Login</dd>
+            </dl>
+            <h5>Papeis</h5>
+            <dl class="dl-horizontal">
+                @foreach (var item in Model.SEGrupoUsuario)
+                {
+                    <dt>@item.SEGrupo.Origem :</dt>
+                        <dd>&nbsp; @item.SEGrupo.Nome</dd>
+                }
+            </dl>
+        </div>
+    </div>
+</div>

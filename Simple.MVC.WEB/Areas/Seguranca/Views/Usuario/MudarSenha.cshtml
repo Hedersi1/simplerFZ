@@ -1,0 +1,105 @@
+﻿@model Simple.MVC.Security.Data.SEUsuarioAlterarSenhaModelo
+
+@{
+    ViewBag.Title = "Alterar Senha";
+    Layout = null;
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "submit" }))
+{ 
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group ">
+                        <label>Usuário</label>
+                        @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @required = "", @readonly= "readonly" })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "help-block" })
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.GerarSenha, true) <strong>Gerar senha automaticamente</strong>
+                            <div>Desmarque para poder cadastrar uma senha específica.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="password-div" style="display:none;">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Senha</label>
+                        @Html.PasswordFor(model => model.Senha, new { @class = "form-control password-iten", @required = "" })
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "help-block" })
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Senha</label>
+                        @Html.PasswordFor(model => model.ConfirmarSenha, new { @class = "form-control password-iten", @required = "" })
+                        @Html.ValidationMessageFor(model => model.ConfirmarSenha, "", new { @class = "help-block" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.MudaSenhaProximoLogon) Mudar senha no próximo logon
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    <button type="submit" id="btnEnviar" class="btn btn-primary">Enviar</button>
+                    <button type="button" id="fechar" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </p>
+        </div>
+    </div>
+</div>
+}
+<script type="text/javascript">
+        $(document).ready(function () {
+            CheckGerarSenha();
+            $('#submit').submit(function (e) {
+                $.ajax({
+                    type: $(this).attr("method"),
+                    url: $(this).attr("action"),
+                    data: $(this).serialize(),
+                    error: function(jqXHR, textStatus, errorMessage) {
+                        $.pnotify({  text: "Aconteceu um erro ao alterar a senha, tente novamente!",  type: "error",  closer: true });
+                    },
+                    success: function (data) {
+                        $.pnotify({ text: data.text, type: data.type, closer: true });
+                        if (data.type == "success") {
+                            $("#fechar").click();
+                        }
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+        $('#GerarSenha').change(function () {
+            CheckGerarSenha();
+        });
+
+        function CheckGerarSenha()
+        {
+            if ($('#GerarSenha').is(':checked')) {
+                $('#password-div').delay(200).hide('slow');
+                $('.password-iten').removeAttr("required");
+            }
+            else {
+                $('#password-div').delay(200).show('slow');
+                $('.password-iten').attr("required");
+            }
+        }
+</script>

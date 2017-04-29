@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Simple.MVC.Security.Data.SEConfiguracao>
+@{
+    ViewBag.Title = "Configurações";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+    <div class="pull-right novo-page-header">
+        <a href="@Url.Action("Criar","Configuracao")" title="Novo Menu"><i class="fa fa-plus-circle fa-3x" title="" data-original-title="Novo Menu"></i><span class="hide">Novo</span></a>
+    </div>
+</div>
+@RenderPage("~/Views/Shared/_filterIndex.cshtml")
+<div class="panel panel-primary table-responsive">
+    <table class="table table-hover">
+        <thead class="tb-primary">
+            <tr >
+                <th>
+                    Id
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Nome de Exibição
+                </th>
+                <th>
+                    Valor
+                </th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeExibicao)
+                </td>
+                <td>
+                     @item.Valor.Substring(0,10)
+                </td>
+                <td>
+                    <a href="@Url.Action("Editar", "Configuracao", new { id = item.Id })">
+                        <i title="Editar" class="fa fa-edit fa-lg"></i><span class="hide">Editar</span></a>
+                    <a href="javascript:;" class="btnModal" data-href="@Url.Action("Excluir", "Configuracao", new { id = item.Id })">
+                        <i title="Excluir" class="fa fa-times fa-lg icon-red"></i><span class="hide">Excluir</span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@RenderPage("~/Views/Shared/_paginate.cshtml")

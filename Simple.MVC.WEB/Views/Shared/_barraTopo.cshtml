@@ -1,0 +1,32 @@
+﻿@{ 
+    var area = ViewContext.RouteData.DataTokens["area"];
+}
+<div class="navbar-simple navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a href="/@area/" class="navbar-brand">
+                <img style="width: 150px; padding-top:11px;" src="~/Content/img/simple_horizontal.png" />
+            </a>
+
+            <a href="#menu-toggle" class="navbar-toggle-visible" id="menu-toggle" title="Ocultar Menu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            @RenderPage("~/Views/Shared/_myApplications.cshtml")
+            @*                    @RenderPage("~/Views/Shared/_mySites.cshtml")*@
+            @RenderPage("~/Views/Shared/_menuPerfil.cshtml")
+        </div>
+    </div>
+</div>
+

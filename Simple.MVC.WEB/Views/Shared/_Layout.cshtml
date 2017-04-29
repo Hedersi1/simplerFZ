@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SIMPLE - @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site-Theme.css" rel="stylesheet" />
+    <script src="~/Content/jquery.min.js"></script>
+    <script src="~/Content/Scripts/jasny-bootstrap.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/select2-4.0.3/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/select2-4.0.3/dist/css/select2-bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jasny-bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/pnotify-1.2.0/jquery.pnotify.default.css" rel="stylesheet" />
+    <link href="~/Content/pnotify-1.2.0/jquery.pnotify.default.icons.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site-Theme.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Content/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Content/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Content/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Content/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Content/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Content/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/Content/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    
+
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <!-- wrap -->
+    <div id="wrap">
+        @RenderPage("~/Views/Shared/_barraTopo.cshtml")
+
+        <div class="navbar-simple navbar navbar-default bg-primario nav-page-header " role="navigation">
+            @*<div class="container-fluid">
+                <div class="navbar-collapse ">
+                     @RenderPage("~/Views/Shared/_navegacao.cshtml")
+                </div>
+            </div>*@
+        </div>
+        <div id="wrapper">
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        @RenderPage("~/Views/Shared/_myMenus.cshtml")
+                        <div id="RenderBody" class="col-lg-12 col-md-12 col-sm-12 main">
+                            @RenderPage("~/Views/Shared/_barraMensagens.cshtml")
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-primario" id="footer">
+        <p class="text-right creditos-desenvolvimento">
+            @DateTime.Now.Year -
+           <a title="SIMPLE - Gerenciamento Simples" href="http://www.simple.com.br">Simple</a> - Todos os direitos reservados.<br>
+        </p>
+    </div>
+    <div class="modal fade" id="myModal"></div>
+    <script src="~/Content/pnotify-1.2.0/jquery.pnotify.min.js"></script>
+    <script src="~/Content/Scripts/bootbox.min.js"></script>
+    <script src="~/Content/Scripts/jquery.maskedinput.min.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.maskMoney.js"></script>
+    <script src="~/Content/Scripts/datepicker_moment.js"></script>
+    <script src="~/Content/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/Scripts/util.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/select2-4.0.3/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $('.field-validation-error').parent().addClass("has-warning");
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        
+        function bindSelect() {
+            $("select:not(.noselect2)").select2({ theme: "bootstrap", width: '100%' });
+        }
+
+        $(document).ready(function () {
+            bindSelect();
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

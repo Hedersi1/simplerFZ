@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Autorização";
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("AutorizarAcao", "Account", FormMethod.Post, new { id = "frmAutorizacao" }))
+            {
+                @Html.ValidationSummary("Validação", new { @class = "alert alert-danger summary" })
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Confirguração de Autorização não encontrado. <br />Favor entrar em contato com o administrador do sistema.</h3>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myModal").modal({ keyboard: true });
+    });
+</script>

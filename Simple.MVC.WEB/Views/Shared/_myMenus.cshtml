@@ -1,0 +1,40 @@
+﻿@using Simple.MVC.Security.Data;
+@{
+    List<SEMenu> MyMenus = Simple.MVC.Security.Data.SimpleRoleProvider.GetMenusForUser(User.Identity.Name, Membership.ApplicationName);
+}
+<div id="sidebar-wrapper">
+
+    <ul id="myMenus" class="nav nav-sidebar list-unstyled">
+        @foreach (var p in MyMenus.Where(m => m.IdMenuPai == null).OrderBy(o => o.Nome))
+        {
+            <li class="panel panel-menu">
+
+                <a data-toggle="collapse" data-parent="#myMenus" data-target="#@p.Id" href="javascript:;">
+                    <i class="fa fa-fw @p.ClasseIcone"></i>@p.Nome
+                    <span class="arrow fa fa-angle-down fa-lg"></span>
+                </a>
+                <ul id="@p.Id" class="collapse list-unstyled sub">
+                    @foreach (var f in p.SEMenu1)
+                    {
+                        if (f != null && f.SEMenuGrupo.FirstOrDefault() != null)
+                        {
+                            if (f.SEMenuGrupo.FirstOrDefault().IdGrupo == p.SEMenuGrupo.FirstOrDefault().IdGrupo)
+                            {
+                                <li><a href="@Url.Action(f.Acao, f.Controlador, new { id = "", Area = f.SESistema.Caminho.Replace("/","") })"><i class="fa fa-fw @f.ClasseIcone"></i> @f.Nome</a></li>
+                            }
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $("#myMenus li a").each(function () {
+        if ($(this).prop("href").toLowerCase() == document.URL.toLowerCase()) {
+            $(this).parent().addClass("active");
+            $(this).parent().parent().addClass("in");
+        }
+    });
+</script>

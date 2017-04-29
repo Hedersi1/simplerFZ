@@ -1,0 +1,33 @@
+﻿@using Simple.MVC.Security.Data;
+@{
+    Layout = null;
+    List<SEMenu> MyMenus = Simple.MVC.Security.Data.SimpleRoleProvider.GetMenusForUser(User.Identity.Name, Membership.ApplicationName);
+    var area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+    ViewBag.Title = area;
+}
+<div class="row">
+    <div class="col-xs-pull-12">
+        <div class="tab-pane fade in active" id="apps">
+            @foreach (var menu in MyMenus.Where(m => m.IdMenuPai != null).OrderBy(o => o.Nome))
+            {
+                string nome = menu.Nome;
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                    <a href="~/@area/@menu.Controlador/" title="@menu.Descricao">
+                        <div class="tile-simple" style="height: 130px">
+                            <div>
+                                @{
+                                    if (menu != null && menu.SEMenu2 != null)
+                                    {
+                                        <h4>
+                                           @(nome == "Gerenciar"? menu.SEMenu2.Nome : nome)
+                                        </h4>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

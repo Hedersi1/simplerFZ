@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8517FC59-D313-49B8-AC17-08AC897DFA61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Simple.MVC.Business</RootNamespace>
+    <AssemblyName>Simple.MVC.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ContextBusiness.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguranca\Autorizacao.cs" />
+    <Compile Include="Seguranca\AutorizacaoRepository.cs" />
+    <Compile Include="Seguranca\DBEstrutura.cs" />
+    <Compile Include="Seguranca\DBEstruturaRepository.cs" />
+    <Compile Include="Seguranca\Gerador.cs" />
+    <Compile Include="Seguranca\GeradorItem.cs" />
+    <Compile Include="Seguranca\GeradorItemRepository.cs" />
+    <Compile Include="Seguranca\GeradorItemTipo.cs" />
+    <Compile Include="Seguranca\GeradorItemTipoRepository.cs" />
+    <Compile Include="Seguranca\GeradorItemValidacao.cs" />
+    <Compile Include="Seguranca\GeradorItemValidacaoRepository.cs" />
+    <Compile Include="Seguranca\GeradorRepository.cs" />
+    <Compile Include="Seguranca\Grupo.cs" />
+    <Compile Include="Seguranca\GrupoRepository.cs" />
+    <Compile Include="Seguranca\Menu.cs" />
+    <Compile Include="Seguranca\MenuGrupo.cs" />
+    <Compile Include="Seguranca\MenuGrupoRepository.cs" />
+    <Compile Include="Seguranca\MenuRepository.cs" />
+    <Compile Include="Seguranca\Papel.cs" />
+    <Compile Include="Seguranca\PapelGrupo.cs" />
+    <Compile Include="Seguranca\PapelGrupoRepository.cs" />
+    <Compile Include="Seguranca\PapelRepository.cs" />
+    <Compile Include="Seguranca\AutorizacaoConfiguracao.cs" />
+    <Compile Include="Seguranca\Sistema.cs" />
+    <Compile Include="Seguranca\AutorizacaoConfiguracaoRepository.cs" />
+    <Compile Include="Seguranca\SistemaRepository.cs" />
+    <Compile Include="Seguranca\Usuario.cs" />
+    <Compile Include="Seguranca\UsuarioRepository.cs" />
+    <Compile Include="Util\CompareDifferent.cs" />
+    <Compile Include="Util\Extensao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simple.MVC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.MVC.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\Simple.MVC.Security\bin\Debug\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

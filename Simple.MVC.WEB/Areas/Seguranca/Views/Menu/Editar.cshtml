@@ -1,0 +1,85 @@
+﻿@model Simple.MVC.Security.Data.SEMenu
+@{
+    ViewBag.Title = "Editar Menu";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label>Sistema</label>
+                        @Html.DropDownListFor(m => m.IdSistema, ViewBag.sistemaId as SelectList, "Selecione...", new { @class = "form-control ddlSistema" })
+                    </div>
+                    <div class="form-group">
+                        <label>Pai</label>
+                        <select id="IdMenuPai" name="IdMenuPai" class="form-control ddlPai"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nome</label>
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control",  @required = ""})
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control",  @required = ""})
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label>Action</label>
+                        @Html.TextBoxFor(model => model.Acao, new { @class = "form-control", @autofocus = "" })
+                    </div>
+                    <div class="form-group">
+                        <label>Controller</label>
+                        @Html.TextBoxFor(model => model.Controlador, new { @class = "form-control", @autofocus = ""})
+                    </div>
+                    <div class="form-group">
+                        <label>Classe do Ícone</label>
+                        @Html.TextBoxFor(model => model.ClasseIcone, new { @class = "form-control",  @placeholder = "fa-cog, fa-chevron-right..." })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="form-group well">
+                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm ">Salvar</button>
+                        <a href="@Url.Action("Indice")" class="btn btn-default btn-sm ">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        pupulaDrop();
+    });
+
+    $('.ddlSistema').change(function () {
+        pupulaDrop();
+    });
+
+    function pupulaDrop() {
+        $('.ddlPai').empty();
+        $(document.createElement('option')).attr('value', "0").text("Aguarde...").appendTo($('.ddlPai'));
+        $.getJSON('@Url.Action("GetMenusForSystem", "Ajax")' + '/' + $('.ddlSistema').find(":selected").val(), function (result) {
+            var ddl = $('.ddlPai');
+            setTimeout(function () {
+                $('.ddlPai').empty();
+                $(document.createElement('option')).attr('value', "").text("Nenhum").appendTo($('.ddlPai'));
+                $(result).each(function () {
+                    $(document.createElement('option'))
+                        .attr('value', this.Value)
+                        .text(this.Text)
+                        .appendTo(ddl);
+                });
+                $('.ddlPai').effect("highlight", 900);
+                $('.ddlPai').val('@Model.IdMenuPai');
+            }, 500);
+        });
+    }
+</script>

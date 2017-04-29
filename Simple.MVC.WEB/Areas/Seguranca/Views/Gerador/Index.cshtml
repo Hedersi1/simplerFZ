@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Gerador";
+}
+<div class="page-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Tabelas</label>
+                <div class="input-group">
+                    @Html.DropDownList("Tabela", ViewBag.Tabelas as SelectList, "Selecione...", new { @class = "form-control ddlSistema", @autofocus = "" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Atributos</label>
+                <div class="panel panel-primary table-responsive">
+                    <table class="table table-hover">
+                        <thead class="tb-primary">
+                            <tr>
+                                <th>Campo</th>
+                                <th>Tipo</th>
+                                <th>Tamanho</th>
+                                <th>IsNullable</th>
+                                <th>Identity</th>
+                                <th>PK</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoitem">
+                            <tr>
+                                <td colspan="6">selecione uma tabela e clique em atualizar campos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Mensagens de Sucesso</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Inserção</label>
+                @Html.TextBox("Sucesso1", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Exclusão</label>
+                @Html.TextBox("Sucesso2", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-success">
+                <label>Alteração</label>
+                @Html.TextBox("Sucesso3", "", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <h3>Mensagens de Erro</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group has-error">
+                <label>Inserção</label>
+                @Html.TextBox("Error1", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-error">
+                <label>Exclusão</label>
+                @Html.TextBox("Error2", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group has-error">
+                <label>Alteração</label>
+                @Html.TextBox("Error3", "", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group well">
+                <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm ">Salvar</button>
+                <a href="@Url.Action("Indice")" class="btn btn-default btn-sm ">Voltar</a>
+            </div>
+        </div>
+    </div>
+
+    <table style="display:none;">
+        <tbody class="modelo">
+            <tr>
+                <td>#FieldName</td>
+                <td>#DataType</td>
+                <td>#MaxLength</td>
+                <td>#IsNullable</td>
+                <td>#IsIdentity</td>
+                <td>#IsPrimaryKey</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        $("#AtualizarCampos").click(function () {
+            //alert('@Url.Action("Atributtos")?tabela=' + $("#Tabela option:selected").val());
+            $.getJSON('@Url.Action("Atributtos")?tabela=' + $("#Tabela option:selected").val(), function (json) {
+                $.pnotify({ text: json.text, type: json.type, closer: true });
+                if (json.type == "success")
+                {
+                    $("#corpoitem").empty();
+                    for (var i = 0; i < parseInt( json.recordsTotal); i++) {
+                        $("#corpoitem").append(
+                            $('.modelo').html()
+                            .replace("#FieldName", json.data[i].FieldName)
+                            .replace("#DataType", json.data[i].DataType)
+                            .replace("#MaxLength", json.data[i].MaxLength)
+                            .replace("#IsNullable", json.data[i].IsNullable)
+                            .replace("#IsIdentity", json.data[i].IsIdentity)
+                            .replace("#IsPrimaryKey", json.data[i].IsPrimaryKey)
+                        );
+                    }
+                }
+            });
+            
+        });
+    </script>
+}

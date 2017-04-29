@@ -1,0 +1,64 @@
+﻿@using Simple.MVC.Security.Data
+@model IEnumerable<SEMenuGrupo>
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <div class="col-lg-12 sidebar">
+        <ul id="SEGruposysMenus" class="nav nav-sidebar list-unstyled">
+            @foreach (SEMenuGrupo p in Model.Where(m => m.SEMenu.IdMenuPai == null).OrderBy(o => o.SEMenu.Nome))
+            {
+                <li class="panel panel-menu">
+                    <a data-target="#@p.SEMenu.Id@p.SEMenu.Id" href="javascript:;">
+                        <i class="fa fa-fw @p.SEMenu.ClasseIcone"></i>@p.SEMenu.Nome
+                    </a>
+                    <ul id="@p.SEMenu.Id@p.SEMenu.Id" class="list-unstyled sub">
+                        @foreach (var f in p.SEMenu.SEMenu1)
+                        {
+                            if (f != null && f.SEMenuGrupo.FirstOrDefault() != null)
+                            {
+                                if (f.SEMenuGrupo.FirstOrDefault().IdGrupo == p.IdGrupo)
+                                {
+                                    <li>
+                                        <i class="fa fa-fw @f.ClasseIcone"></i>@f.Nome
+                                        <a href="javascript:;" class="bntDelete pull-right" data-href="@Url.Action("Excluir", "MenuGrupo", new { id = f.SEMenuGrupo.FirstOrDefault().Id })">
+                                            <i title="Excluir" class="fa fa-times fa-lg icon-red" style="margin-right: 13px;"></i>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}
+<script>
+    $(".bntDelete").click(function () {
+        $(this).parent().fadeOut();
+        $.ajax({
+            url: $(this).attr("data-href"),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (result) {
+                var pai = $(result).prop("deletaPai");
+                if (pai > 0) {
+                    $("ul#" + pai).parent().remove();
+                }
+                $(this).parent().remove();
+                $.pnotify({
+                    text: $(result).prop("text"),
+                    type: $(result).prop("value"),
+                    closer: true
+                });
+                SEGrupo();
+            },
+            error: function () {
+                $(this).parent().fadeIn();
+            }
+        });
+    });
+</script>
